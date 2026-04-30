@@ -1,0 +1,33 @@
+' Blob ID: 99383b24240f8fcd3a0e9c5e082afda5ccb56d02
+' Original Path: /docs/src/use-cases/specification/launch-spec.plantuml
+' Source: World of Code
+
+@startuml
+title LaunchUseCaseSpecification
+skinparam NoteBackgroundColor white
+hide empty description
+state conditionLaunch <<choice>>
+state asTrainner as " "
+
+[*]-[#green]-> conditionLaunch
+note on link #white
+  <b>Player requests to
+  Launch a new game
+end note
+
+conditionLaunch -[#green]-> INITIAL
+note on link #white
+  <b>System allows
+  start
+  load
+end note
+
+conditionLaunch -[#green]-> asTrainner : [Player as AITrainner]
+asTrainner -[#green]-> INITIAL
+note on link #white
+  <b>System allows
+  showConfig
+  editConfig
+  load
+end note
+@enduml

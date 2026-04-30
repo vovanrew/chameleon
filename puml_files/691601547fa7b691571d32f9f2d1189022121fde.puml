@@ -1,0 +1,87 @@
+' Blob ID: 691601547fa7b691571d32f9f2d1189022121fde
+' Original Path: /Samples/timing_test.pu
+' Source: World of Code
+
+@startuml
+
+'add a clock with a specific period
+clock clk with period 1
+'add some binary trigger
+binary "sampling trigger" as trg
+'add some state indication
+concise state
+'and some states
+robust signal
+' for which, we can define the states in advance (optional)
+signal has high,medium,low,zero
+'set their initial state
+state is Idle
+
+'events can be defined per indicator at specific times
+@trg
+0 is low
+1 is high
+5 is low
+'indicate some duration
+@1 <-> @5 : {40 ms}
+
+' or at specific time point
+@0
+'and the intial state can be undetermined
+signal is {low,zero}
+@1
+'send a signal
+trg -> state : start
+state is Sampling
+'send a signal with a delay
+state -> signal@+0.5
+
+@signal
+'indicate some delay
+@+0 <-> @+0.5 : {5 ms}
+
+@+0.5
+signal is zero
+
+@+0.5
+signal is low
+
+@3
+signal is medium
+
+@4
+signal is high
+
+@5
+trg -> state  : stop
+state is Reading
+state -> signal@+0.5
+
+@state
+@5 <-> @+1 : {10 ms}
+6 is Idle
+
+@6
+state -> signal@+0.5
+
+@+0.5
+signal is {low,zero}
+
+'make hidden states
+@7
+state is {hidden}
+signal is {hidden}
+
+@9
+state is {-}
+
+@10
+state is Idle
+signal is {low,zero}
+
+@+1
+trg is high
+state is Sampling
+
+
+@enduml

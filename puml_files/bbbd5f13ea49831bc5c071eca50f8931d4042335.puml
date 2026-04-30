@@ -1,0 +1,33 @@
+' Blob ID: bbbd5f13ea49831bc5c071eca50f8931d4042335
+' Original Path: /diagrams/client/localizationPresentation.puml
+' Source: World of Code
+
+@startuml
+
+package PolicyModelExtension {
+class LocalizationDomain {
+    void eventHandlerA()
+    void eventHandlerB()
+}
+}
+
+package LocalizationGUI{
+
+class ReactComponents {}
+}
+
+LocalizationGUI ==|> PolicyModelExtension : user events
+
+package WebConsumer {
+class LogicDomain {
+  void eventHandlerA()
+    void eventHandlerB()
+}
+}
+
+PolicyModelExtension ==|> LocalizationGUI: render
+
+
+
+
+@enduml

@@ -1,0 +1,68 @@
+' Blob ID: 83ff183dad58ce20acba8ce0f66307ad3ddcf92a
+' Original Path: /previous_labexams/dsl/LabExam-DSL-Function-A2-Kainz/src/test/resources/expected.puml
+' Source: World of Code
+
+@startuml
+object MPipeline001
+
+object MFunctionCall001
+
+object MFunctionCall002
+
+object MFunctionCall003
+
+object MFunctionCall004
+
+object MFunction001{
+	name = "input"
+}
+
+MFunctionCall004 o-- MFunction001 : function
+MFunctionCall003 o-- MFunctionCall004 : inputs
+object MFunction002{
+	name = "square"
+}
+
+object MParameter001{
+	name = "base"
+}
+
+MFunction002 o-- MParameter001 : parameters
+MFunctionCall003 o-- MFunction002 : function
+MFunctionCall002 o-- MFunctionCall003 : inputs
+object MFunctionCall005
+
+object MFunctionCall006
+
+MFunctionCall006 o-- MFunction001 : function
+MFunctionCall005 o-- MFunctionCall006 : inputs
+MFunctionCall005 o-- MFunction002 : function
+MFunctionCall002 o-- MFunctionCall005 : inputs
+object MFunction003{
+	name = "add"
+}
+
+object MParameter002{
+	name = "summand1"
+}
+
+MFunction003 o-- MParameter002 : parameters
+object MParameter003{
+	name = "summand2"
+}
+
+MFunction003 o-- MParameter003 : parameters
+MFunctionCall002 o-- MFunction003 : function
+MFunctionCall001 o-- MFunctionCall002 : inputs
+object MFunction004{
+	name = "sqrt"
+}
+
+object MParameter004{
+	name = "square"
+}
+
+MFunction004 o-- MParameter004 : parameters
+MFunctionCall001 o-- MFunction004 : function
+MPipeline001 o-- MFunctionCall001 : end
+@enduml

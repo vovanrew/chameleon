@@ -1,0 +1,21 @@
+' Blob ID: 80713ef72f63613c88a17e39b87a7aa94f63dda1
+' Original Path: /08_sequencediagram/58_sequence_anchor.puml
+' Source: World of Code
+
+'
+'Basics: Anchors and Duration
+'
+'With teoz usage it is possible to add anchors to the diagram and use the anchors 
+'to specify duration time.
+'
+
+@startuml
+!pragma teoz true
+
+{start} Alice -> Bob : start doing things during duration
+    Bob -> Max : something
+    Max -> Bob : something else
+{end} Bob -> Alice : finish
+
+{start} <-> {end} : some time
+@enduml

@@ -1,0 +1,35 @@
+' Blob ID: 24a8ecd57e9e79def519d219fc555d5d0fc224b1
+' Original Path: /uml/demo/design/order/新方案/类图/逆向售后.puml
+' Source: World of Code
+
+@startuml
+'hide members
+
+package 共用单据 {
+   Object 发票
+   Object 地址
+   Object 支付
+   Object 退款单
+   Object 物流单
+}
+
+package cs {
+   Object RMA
+}
+package 逆向售后 {
+
+   Object 售后主表
+   Object 售后项
+
+    售后主表  -up- "1..*" 售后项
+    售后主表  -- "1..*" 地址
+    售后主表  -- "1" 发票
+    售后主表  -- "0..*" 退款单
+    售后主表  -- "1..*" 支付
+    售后主表  -- "1..*" 物流单
+}
+
+逆向售后 "1"-- "1" RMA
+
+
+@enduml

@@ -1,0 +1,14 @@
+' Blob ID: 833fe4709a75c0f2dbd667dcd8e8fffe08108691
+' Original Path: /template_UML/templete_sequence.pu
+' Source: World of Code
+
+@startuml
+!pragma teoz true
+
+{start} Alice -> Bob : start doing things during duration
+Bob -> Max : something
+Max -> Bob : something else
+{end} Bob -> Alice : finish
+
+{start} <-> {end} : some time
+@enduml

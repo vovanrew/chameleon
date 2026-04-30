@@ -1,0 +1,21 @@
+' Blob ID: 155fd82dad77a2dcf922b4df37375272dadcf79f
+' Original Path: /src/com/zzw/java1000000/z1167839/stream/test/sim导师.puml
+' Source: World of Code
+
+@startuml
+
+state 导师请假 {
+
+    [*] --> 待提交 : 保存
+
+    待提交 --> 待复审 : 提交(自动初审通过)
+
+    待复审 --> 复审通过 : 部门领导通过
+
+    复审通过 --> 审核通过 : 总经理审核通过
+
+    审核通过 --> [*]
+
+}
+
+@enduml

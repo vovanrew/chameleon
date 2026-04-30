@@ -1,0 +1,32 @@
+' Blob ID: 643d9e79614920c1da0e712f1fc63ec7b8fcd10d
+' Original Path: /functional-tests/sequencediagram.puml
+' Source: World of Code
+
+@startuml
+title Cucumber Functional Tests Setup
+
+actor "PayerFSP Simulator" as PayerFSPSimulator
+participant Cucumber
+participant Switch
+actor "PayeeFSP Simulator" as PayeeFSPSimulator
+
+
+PayerFSPSimulator ->Switch: 1. Register Callback
+PayeeFSPSimulator->Switch: 1. Register Callback
+
+
+Cucumber->Switch: 2. Receiver Lookup
+activate Switch
+Switch ->Cucumber: HTTP Response 202
+deactivate Switch
+
+Switch->PayeeFSPSimulator: 3. Get Receiver Details
+activate PayeeFSPSimulator
+PayeeFSPSimulator->Switch: Receiver Details
+deactivate PayeeFSPSimulator
+
+Switch->PayerFSPSimulator: 4. Receiver Details(Callback)
+
+Cucumber<-PayerFSPSimulator: Get Respose Details
+Cucumber->Cucumber: Response Validation
+@enduml

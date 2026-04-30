@@ -1,0 +1,12 @@
+' Blob ID: 3f09d1ca779324e92587ea3e1dbe44e0b8710b5d
+' Original Path: /puFileV7TMS/PointOfInteractionComponentIdentification1.pu
+' Source: World of Code
+
+@startuml
+object PointOfInteractionComponentIdentification1 { 
+ItemNumber [0...1] : Max35Text
+ProviderIdentification [0...1] : Max35Text
+Identification [0...1] : Max35Text
+SerialNumber [0...1] : Max35Text
+}
+@enduml 

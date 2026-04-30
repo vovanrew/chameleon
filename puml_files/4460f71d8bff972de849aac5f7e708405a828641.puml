@@ -1,0 +1,37 @@
+' Blob ID: 4460f71d8bff972de849aac5f7e708405a828641
+' Original Path: /thesefoolishthings/3.2-ALPHA-17/modules/it-tidalwave-role-spring/testapidocs/package-dependencies.puml
+' Source: World of Code
+
+@startuml
+    set namespaceSeparator none
+    hide circle
+    hide empty fields
+    hide empty methods
+
+    it.tidalwave.role.spring --> it.tidalwave.role.spi
+    it.tidalwave.role.spring --> it.tidalwave.util
+    it.tidalwave.role.spring --> org.springframework.context
+    it.tidalwave.role.spring --> it.tidalwave.role.spring.mock
+    it.tidalwave.role.spring.mock --> it.tidalwave.util
+    it.tidalwave.role.spring.spi --> it.tidalwave.role.spi
+    it.tidalwave.role.spring.spi --> org.springframework.beans.factory.aspectj
+    it.tidalwave.role.spring.spi --> org.slf4j
+    it.tidalwave.role.spring.spi --> org.springframework.beans.factory
+    it.tidalwave.role.spring.spi --> org.aspectj.lang
+    it.tidalwave.role.spring.spi --> org.aspectj.runtime.internal
+    it.tidalwave.role.spring.spi --> it.tidalwave.util
+
+    ' Package links
+    class "it.tidalwave.role.spring" [[it/tidalwave/role/spring/package-summary.html]] {
+    }
+    class "it.tidalwave.role.spi" [[https://tidalwave.bitbucket.io/thesefoolishthings/modules/it-tidalwave-util/apidocs/it/tidalwave/role/spi/package-summary.html?is-external=true]] {
+    }
+    class "it.tidalwave.util" [[https://tidalwave.bitbucket.io/thesefoolishthings/modules/it-tidalwave-util/apidocs/it/tidalwave/util/package-summary.html?is-external=true]] {
+    }
+    class "it.tidalwave.role.spring.mock" [[it/tidalwave/role/spring/mock/package-summary.html]] {
+    }
+    class "it.tidalwave.role.spring.spi" [[it/tidalwave/role/spring/spi/package-summary.html]] {
+    }
+
+    center footer UMLDoclet 2.0.12, PlantUML 1.2020.16
+@enduml

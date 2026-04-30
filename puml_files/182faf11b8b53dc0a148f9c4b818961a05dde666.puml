@@ -1,0 +1,23 @@
+' Blob ID: 182faf11b8b53dc0a148f9c4b818961a05dde666
+' Original Path: /src/com/zt/mode/factory/FactoryMethod.puml
+' Source: World of Code
+
+@startuml
+
+interface Product{
+    void show();
+}
+
+interface FactoryMethod{
+    Product newProduct();
+}
+
+class AppleProduct{
+      void show(){};
+}
+
+class OrangeProduct{
+      void show(){};
+}
+
+@enduml

@@ -1,0 +1,25 @@
+' Blob ID: 0808652d87e81adbf35c46a13a4fd59eacf01aba
+' Original Path: /documentation/user_info/18_org_admin_usecase18.wsd
+' Source: World of Code
+
+@startuml
+
+skinparam actorStyle awesome
+left to right direction
+skinparam packageStyle rectangle
+
+actor OrgAdmin
+actor User
+
+rectangle usecase18{
+  OrgAdmin-- (Update User)
+  (Update User) .> (OrgAdmin login) : authentication (email, password)
+  (OrgAdmin login) .> (Login successful) : authentication successful
+  (Login successful) .> (User name\nUser email\nUser phone number) : authorization
+  (User name\nUser email\nUser phone number) .> (User updated) : authorization 
+  (OrgAdmin login) .> (Login unsuccessful) : authentication failed
+  (Login unsuccessful) .> (User not updated)  
+  (Update User)-- User
+}
+
+@enduml

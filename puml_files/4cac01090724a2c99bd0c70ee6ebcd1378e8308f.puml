@@ -1,0 +1,37 @@
+' Blob ID: 4cac01090724a2c99bd0c70ee6ebcd1378e8308f
+' Original Path: /graph.plantuml
+' Source: World of Code
+
+@startuml
+hide empty description
+State N1
+State N2
+State N3
+State N4
+State N5
+State N6
+State N7
+
+N1 : lo = 0
+N1 : hi = len(arr)
+N2 : mid = (lo + hi) // 2
+N3 : return mid
+N4 : hi = mid
+N5 : lo = mid + 1
+N6 : return -1
+N7 : while
+
+[*] --> N1
+N1 --> N7
+N7 --> N2: lo <= hi
+N7 --> N6: lo > hi
+N2 --> N3 : x == arr[mid] and (mid == 0 or x != arr[mid - 1])
+N2 --> N4 : ![x == arr[mid] and (mid == 0 or x != arr[mid - 1])] and x <= arr[mid]
+N2 --> N5 : ![![x == arr[mid] and (mid == 0 or x != arr[mid - 1])] and x <= arr[mid]]
+N4 --> N7
+N5 --> N7
+N3 --> [*]
+N6 --> [*]
+
+
+@enduml

@@ -1,0 +1,41 @@
+' Blob ID: 386025f39cd895bc0cce4c65f3b599f338820817
+' Original Path: /usecase_diagram/CEP_UC_PRE_SS.uml
+' Source: World of Code
+
+@startuml
+skinparam shadowing false
+left to right direction
+skinparam backgroundcolor transparent
+
+' Smart Service -> SS
+(SS01. Browse Service) as SS01
+(SS02. Subscribe Service) as SS02
+(SS03. Unsubscribe Service) as SS03
+(SS04. Install\n Service App) as SS04
+(SS05. Run Service\n on Local) as SS05
+(SS06. Run Service\n on Cloud) as SS06
+(SS07. Check\n My Subscriptions) as SS07
+(SS08. Write Review\n For Service) as SS08
+(SS09. Play Service) as SS09
+(SS10. Stop\n Playing Service) as SS10
+(SS11. Change Service) as SS11
+(SS12. Auto-configure Service) as SS12
+
+(FR02. Show Face) as FR02
+
+SS01 -- :User:
+SS02 -- :User:
+SS03 -- :User:
+SS04 -- :User:
+SS05 --|> SS09
+SS06 --|> SS09
+:User: -- SS07
+:User: -- SS08
+:User: -- SS09
+FR02 <.. SS09 : <<include>>
+FR02 <. SS01 : <<include>>
+:User: -- SS10 
+:User: -- SS11
+SS09 <. SS12 : <<extend>>
+
+@enduml

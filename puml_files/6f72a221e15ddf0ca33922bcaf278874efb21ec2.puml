@@ -1,0 +1,36 @@
+' Blob ID: 6f72a221e15ddf0ca33922bcaf278874efb21ec2
+' Original Path: /.history/teste_20200902213705.wsd
+' Source: World of Code
+
+@startuml
+
+scale 1
+left to right direction
+skinparam PackageStyle rectangle
+actor newUser
+actor user
+rectangle meusys {
+  
+  newUser -- (register)
+  newUser -u-> user
+  user -- (login)
+  user -- (write)
+  user -- (audio)
+  user -- (video)
+  user -- (photography)
+  user -- (attach file)
+  user -- (determines)
+
+  (write)       -d.> (register item): include
+  (audio)       -d.> (register item): include
+  (video)       -d.> (register item): include
+  (photography) -d.> (register item): include
+  (attach file) -d.> (register item): include
+
+  (remove register item) -d.> (determines): extend
+  (incubate register item) -d.> (determines): extend
+  (reference register item) -d.> (determines): extend
+  (plan action) -d.> (determines): extend
+  (delegate) -d.> (determines): extend
+}
+@enduml

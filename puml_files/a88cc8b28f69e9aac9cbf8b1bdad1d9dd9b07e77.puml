@@ -1,0 +1,31 @@
+' Blob ID: a88cc8b28f69e9aac9cbf8b1bdad1d9dd9b07e77
+' Original Path: /stackexchange/opensource-9314-lgpl_using_proprietary/question-cmp-a_lgpl-l_lgpl-l_propr.plantuml
+' Source: World of Code
+
+@startuml
+hide stereotype
+skinparam componentStyle uml2
+skinparam shadowing false
+skinparam interfaceBackgroundColor #FFFFFF
+skinparam interfaceBorderColor #000000
+
+skinparam component {
+    BorderColor #000000
+    ArrowColor #000000
+    backgroundColor<<GPL-3.0>> #CCE5FF
+    backgroundColor<<LGPL-3.0>> #CCFFCC
+    backgroundColor<<Proprietary>> #FFCCFF
+}
+
+component ApplicationB as "==ApplicationB \n license: **LGPL-3.0**" <<LGPL-3.0>>
+component LibraryD as "==LibraryD \n license: **LGPL-3.0**" <<LGPL-3.0>>
+interface LibraryDI as "**an interface**"
+component LibraryE as "==LibraryE \n license: **Proprietary**" <<Proprietary>>
+interface LibraryEI as "**an interface**"
+
+LibraryE -left- LibraryEI : ◀ provides
+LibraryD ..right..> LibraryEI : uses ▶
+LibraryD -left- LibraryDI : ◀ provides
+ApplicationB ..right..> LibraryDI : uses ▶
+
+@enduml

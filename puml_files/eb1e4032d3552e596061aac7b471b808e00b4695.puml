@@ -1,0 +1,45 @@
+' Blob ID: eb1e4032d3552e596061aac7b471b808e00b4695
+' Original Path: /designs/UML/ModuleDesign_ObtainServiceOrder.puml
+' Source: World of Code
+
+@startuml
+
+"Ship Owner" -> "Services Order" : Create Services Order
+activate "Services Order"
+
+Stevedores <- "Services Order" : Obtain the Service Order
+activate Stevedores
+
+Stevedores -> Services : Request Services
+activate Services
+
+
+Services -> Water : Request Water Service
+activate Water
+Services <-- Water : Completed Water Service
+deactivate Water
+
+Services -> Waste : Request Waste Service
+activate Waste
+Services <-- Waste : Completed Waste Service
+deactivate Waste
+
+Services -> Cargo : Request Cargo Service
+activate Cargo
+Services <-- Cargo : Completed Cargo Service
+deactivate Cargo
+
+Services --> Stevedores: Services Completed
+deactivate Services
+
+Stevedores --> "Services Order" : Update Service Order
+deactivate "Services Order"
+
+Stevedores -> "Billing System" : Create Bill
+activate "Billing System"
+destroy Stevedores
+
+"Billing System" --> "Ship Owner" : Bill
+deactivate "Billing System"
+
+@enduml

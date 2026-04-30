@@ -1,0 +1,43 @@
+' Blob ID: bdf517e9b95714dbc7f83ae6ccfd9f178afa1c2b
+' Original Path: /docs/src/diagrams/src/video_pipe.pu
+' Source: World of Code
+
+@startuml
+start 
+partition "Wykrycie i analiza pustego stołu" {
+:Ustawienie kamery nieruchomo, stół pusty;
+
+:Uśrednienie obrazu <b>I_avg</b> z okresu 30 klatek
+w celu eliminacji szumów;
+
+:Stworzenie maski na podstawie
+pikseli w kolorze stołu z okreśłoną tolerancją
+w przestrzeni kolorów HSV;
+
+:Znalezienie krawędzi w masce i wyznaczenie
+obróconego prostokąta o najmniejszym
+polu zawierający kontur;
+
+:Wyznaczenie macierzy <b>M</b> tranformacji perspektywicznej
+obszaru stołu do pełnej klatki z zachowaniem proporcji;
+}
+
+:Rozpoczęcie gry;
+
+while (następna klatka?) is (tak)
+  :Odjęcie od klatki obrazu <b>I_avg</b>;
+  :Wykonanie transformacji perspektywicznej
+  z macierzą <b>M</b>;
+  floating note left: W tym momencie otrzymujemy\ndopasowany obraz bez zbędnych \nelementów.
+  :Wyszukanie konturów i odrzucenie tych
+  o zbyt dużej rozpiętości i powierzchni;
+  :Wycięcie bil na podstawie wykrytych konturów;
+  :Klasyfikacja typu bil z użyciem sieci neuronowej;
+  :Przesłanie wykrytego stanu stołu do
+  komponentu odpowiedzielnego za wyświetlanie
+  i dedukcję stanu gry;
+endwhile
+
+stop
+
+@enduml

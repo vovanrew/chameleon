@@ -1,0 +1,29 @@
+' Blob ID: 5ba605308f1a21fe57e4585e5946588da76bbe0c
+' Original Path: /docs/Solution/Hybrid-Cloud/Artifact-Repository/Deployment.puml
+' Source: World of Code
+
+@startuml
+
+package  "Hybrid Cloud/Artifact Repository"  #lightblue {
+  folder bin #ffffff {
+    file binName
+  }
+
+  folder Services #ffffff {
+    file uservice
+  }
+
+  node micro
+
+  node sailsjs
+  database DB1
+
+  sailsjs -- DB1
+  bin .. sailsjs
+  Services .. micro
+
+  micro -- DB1
+  sailsjs -> micro
+}
+
+@enduml

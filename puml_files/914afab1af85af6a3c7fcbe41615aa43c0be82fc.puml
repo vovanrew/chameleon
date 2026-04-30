@@ -1,0 +1,10 @@
+' Blob ID: 914afab1af85af6a3c7fcbe41615aa43c0be82fc
+' Original Path: /test3/读者对象.puml
+' Source: World of Code
+
+@startuml
+	object reader {
+	 	username = "ｇｎ"
+		password = "果倪"
+	}
+@enduml

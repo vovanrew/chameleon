@@ -1,0 +1,52 @@
+' Blob ID: a90e85911879195540004b39005dcb1ca0e3e9e2
+' Original Path: /Agent2XNAT.puml
+' Source: World of Code
+
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Agent to XNAT Communication\n\n
+
+participant Agent [
+    =Agent
+    ---
+    ""Container Processor""
+    ]
+
+participant CS [
+    =CS4
+    ---
+    Container Service 4.0
+    XNAT REST API
+    ]
+
+skinparam sequenceMessageAlign center
+
+
+== Jobs Request ==
+opt
+Agent -> CS: Request hold on N jobs that match agent group id
+CS -> CS: Place hold on 0-N matching\njobs in launch queue
+CS --> Agent: Respond with requested job(s) metadata
+
+Agent -> CS: Accept 0-N jobs that match \nagent resource availability
+CS --> Agent: Respond with job launch commands
+
+CS -> CS: Release hold on unaccepted jobs
+CS -> CS: Update status on accepted jobs
+end
+
+== Job Status Update ==
+loop
+Agent -> CS: Post update to status on accepted jobs
+CS -> CS: Update status
+alt Terminal Status
+CS -> CS: Submit to finalization queue
+end
+CS --> Agent: Confirm status update
+...Wait 10 seconds...
+end
+
+@enduml
+
+

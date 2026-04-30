@@ -1,0 +1,81 @@
+' Blob ID: a94e354814d5c23a30fe711606488a6de6398742
+' Original Path: /specs/Recipe/Stage/A165-R1/Moisture.puml
+' Source: World of Code
+
+@startuml
+
+state Moisture{
+
+[*] --> OAR_StartN2
+OAR_StartN2: OAR message: "Start N2 Sparge at 2 scfm"
+
+OAR_StartN2 --> mois_Start_Vacuum
+mois_Start_Vacuum: Close 'DECANT_VENT_VLV'
+mois_Start_Vacuum: Close 'SCRUB_VENT_VLV'
+mois_Start_Vacuum: Start 'VAC_PMP'
+mois_Start_Vacuum: Set 'VAC_CTL' to ROUT
+mois_Start_Vacuum: Open 'VAC_CTL' to 20%
+mois_Start_Vacuum: Set 'VAC_RAMP/RAMP_RATE' to 0.33% /second
+mois_Start_Vacuum: Set 'VAC_RAMP/RAMP_PAUSE' to False
+mois_Start_Vacuum: Set 'VAC_RAMP/RAMP_ENABLE' to True
+
+mois_Start_Vacuum --> mois_Steam_Heat
+mois_Steam_Heat: Open 'STEAM_VLV'
+
+mois_Steam_Heat --> Wait_Press: wait 'RX_TEMPERATURE' > 180F
+Wait_Press: Wait 'RX_PRESSURE' < 25 mmHg
+
+Wait_Press --> Wait_Mois_Chain: Wait for 30 mins
+
+
+Wait_Mois_Chain --> mois_Cool
+mois_Cool: OAR message: "Cooling for catalyst."
+mois_Cool: Close 'STEAM_VLV'
+mois_Cool: Open 'CW_SPLY_VLV'
+mois_Cool: Open 'CND_RTN_VLV'
+mois_Cool: Open 'BC_VLV'
+mois_Cool: Open 'TJ_VLV'
+mois_Cool: Set 'CW_CTL' to ROUT
+mois_Cool: Open 'CW_CTL' to 100%
+mois_Cool: Set 'CW_CTL' to RCAS
+mois_Cool: Open 'CW_CTL' to 115 F
+
+mois_Cool --> mois_Stop_Vacuum: wait for 'RX_TEMPERTUARE' < 160 F
+mois_Stop_Vacuum: Close 'STEAM_VLV'
+mois_Stop_Vacuum: Stop 'VAC_PMP'
+mois_Stop_Vacuum: Close 'VAC_CTL' to 0
+
+mois_Stop_Vacuum --> mois_Pressure_Up
+mois_Pressure_Up: Open 'nitrogen_valve'
+mois_Pressure_Up: Verify 'RX_PRESSURE' > pressure_target
+
+mois_Pressure_Up --> mois_Close_Temp: wait for 'RX_TEMPERATURE' < 120F
+mois_Close_Temp: Close 'STEAM_VLV'
+mois_Close_Temp: Close 'CW_SPLY_VLV'
+mois_Close_Temp: Close 'BC_VLV'
+mois_Close_Temp: Close 'TJ_VLV'
+mois_Close_Temp: Close 'MJ_VLV'
+
+mois_Close_Temp --> mois_Check_Pressure
+
+mois_Check_Pressure --> [*]: 'RX_PRESSURE' < 35 mmHg
+
+mois_Check_Pressure --> OAR_Sample: 'RX_PRESSURE' >= 35 mmHg
+OAR_Sample: OAR message: "Proper vacuum was not achieved. Sample for moisture."
+OAR_Sample: OAR response = 5
+
+OAR_Sample --> OAR_Smpl_Amt
+
+OAR_Smpl_Amt --> OAR_mois_strip: moisture_result >= moisture_test
+OAR_mois_strip: OAR message: "Moisture high. contining moisture strip. Check N2 sparge"
+
+OAR_mois_strip --> Wait_Pressure: wait for 'RX_TEMPERATURE' > 180 F
+Wait_Pressure: wait for 'RX_PRESSURE < 25 mmHg
+
+Wait_Pressure --> OAR_Sample: wait for 30 min
+
+OAR_Smpl_Amt --> [*]: moisture_result < moisture_test
+
+
+}
+@enduml

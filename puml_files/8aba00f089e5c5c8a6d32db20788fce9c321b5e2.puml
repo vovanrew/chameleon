@@ -1,0 +1,44 @@
+' Blob ID: 8aba00f089e5c5c8a6d32db20788fce9c321b5e2
+' Original Path: /src/cleonproject.deliverables.architecture.model.architecture/src/cleon.architecturemethods.itarc42.sample/img/cleon_architecturemethods_itarc42_ikt/Deploymentdiagramm_Infrastruktur-Ebene_2__TN_RA2__986___Teilnetz__Test-Umgebung.puml
+' Source: World of Code
+
+@startuml
+
+
+skinparam monochrome true
+skinparam componentStyle uml2
+!include <office/servers/server_generic_green>
+!include <office/servers/virtual_application_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/file_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/domain_controller>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/services/central_management_service>
+
+show stereotype
+
+rectangle TN__F_RA2__F___N_986__O_ as "TN RA2 (986)" <<Teilnetz>> {
+	rectangle VMH__S_986__S_POOL__S_00__F___N_KON__O_ as "VMH-986-POOL-00 (KON)" <<$server_generic_green>> {
+		rectangle VMH__S_986__S_POOL__S_00__F__aA_Vevey_aC_ as "VMH-986-POOL-00 [Vevey]" <<$virtual_application_server>> {
+		
+		}
+	}
+}
+
+
+' Begin Protected Region [[layouting]]
+
+' End Protected Region   [[layouting]]
+
+@enduml
+' Actifsource ID=[dc5bfacd-eaac-11e8-88d3-bfc6b992bdec,ede63d59-0eb1-11e9-9f19-6d15636f4ecc,Hash]

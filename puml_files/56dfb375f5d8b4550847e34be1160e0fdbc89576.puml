@@ -1,0 +1,25 @@
+' Blob ID: 56dfb375f5d8b4550847e34be1160e0fdbc89576
+' Original Path: /.history/surfManeirão_20201015120456.wsd
+' Source: World of Code
+
+@startuml
+
+package Client {
+  class ApiInfoPraia {
+    Altura da onda
+    Direção da onda
+    Altura da ondulação
+    Direção do ondulação
+    Período de ondulação
+    Velocidade do vento
+    Direção do vento 
+  }
+}
+package Models {
+  
+}
+package Controllers {}
+package Middlewares {}
+package Services {}
+
+@enduml

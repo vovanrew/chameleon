@@ -1,0 +1,57 @@
+' Blob ID: 5a218e2bcf5878905c5108356151c1796118e33d
+' Original Path: /UML/player_car_state_machine.puml
+' Source: World of Code
+
+@startuml
+
+note " state change can be triggered in Update() method\n within each State or object that has that state" as updateNote
+note " States within Player Vehicle" as note2
+
+state PlayerState : = this is the base state class
+state PlayerState : do / control player movement
+
+state PlayerBaseState
+
+[*] -u> PlayerBaseState
+PlayerBaseState -> PlayerStandardHitState : [ OnObstacleHit ]
+
+state PlayerStandardHitState : do / apply force to player vehicle
+
+state PlayerStandardHitState{
+    state invulnerableState : do / disables collisions
+    state invulnerableState : exit / enables collisions
+    [*] -> invulnerableState
+    invulnerableState --> invulnerableState : [ stateTimeCount < invulnerableTime ]
+    invulnerableState --> PlayerBaseState : [ stateTimeCount >= invulnerableTime ]
+}
+
+PlayerBaseState --> PlayerPowerUpReadyState : [ onPowerUpHit ]
+
+state PlayerPowerUpReadyState{
+
+    state c <<choice>>
+    [*] -> c
+    c -> playerPowerUp : [ playerPowerUp != null ]
+    c --> PlayerBaseState : [ playerPowerUp == null ]
+
+    state playerPowerUp{
+
+        state activePowerUp : do / applies modification on player input
+        [*] -> activePowerUp
+        activePowerUp -> [*]
+        -----
+
+        state passivePowerUp : do / applies modification for a duration
+        [*] ->  passivePowerUp
+        passivePowerUp -> passivePowerUp : [ stateTimeCount < powerUpTime ]
+        passivePowerUp -l> [*] : [stateTimeCount >= powerUpTime]
+
+
+
+    }
+
+}
+
+
+
+@enduml

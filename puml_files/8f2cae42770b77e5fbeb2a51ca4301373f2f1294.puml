@@ -1,0 +1,14 @@
+' Blob ID: 8f2cae42770b77e5fbeb2a51ca4301373f2f1294
+' Original Path: /puFileV7TMS/Signer4.pu
+' Source: World of Code
+
+@startuml
+object Signer4 { 
+Version [0...1] : Number
+SignerIdentification [0...1] : Recipient5Choice
+DigestAlgorithm [1...1] : AlgorithmIdentification21
+SignedAttributes [0...*] : GenericInformation1
+SignatureAlgorithm [1...1] : AlgorithmIdentification20
+Signature< [1...1] : Max3000Binary
+}
+@enduml

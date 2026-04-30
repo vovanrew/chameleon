@@ -1,0 +1,18 @@
+' Blob ID: b4845912134d7db11a83cd8fc387691f0d57cf66
+' Original Path: /doc/uml/Analyse_syntaxique.puml
+' Source: World of Code
+
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+
+#palegreen:$age_du_capitaine = 72; <
+:Analyse Lexicale;
+#palegreen:[Identifiant:'age_du_capitaine'],  ['='],   [Entier:72],   [';'] <
+:Analyse syntaxique;
+#palegreen: Instruction_assignation(Identifiant: 'age_du_capitaine', Entier:72) <
+
+stop
+
+@enduml

@@ -1,0 +1,32 @@
+' Blob ID: 1ba8792536addb869de76431b72109cef0f51815
+' Original Path: /_startimpuls/components.puml
+' Source: World of Code
+
+@startuml
+
+component "Agent-App" {
+
+    component "Core" {
+        component Engine
+        component Skills
+
+        Engine ..> Skills : use
+    }
+
+    component Speech
+    Engine ..> Speech : use
+
+    component Preferences
+    Skills ..> Preferences : use
+
+    component Calendar
+    Skills ..> Calendar : use
+
+    component VVS
+    Skills ..> VVS : use
+
+    component car2go
+    Skills ..> car2go : use
+}
+
+@enduml

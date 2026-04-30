@@ -1,0 +1,22 @@
+' Blob ID: a223b581e641f706aa73fa3ab7b7e45bf4e857c2
+' Original Path: /_site/assets/img/2015-03-02-relation-in-parse/publisher-book-associationfree.puml
+' Source: World of Code
+
+@startuml
+
+class Publisher {
+  «stdid» name[1] : String
+  address[0..1] : String
+  publishedBooks[*] : Book
+}
+
+
+class Book {
+  «stdid» isbn[1] : String
+  title[1] : String
+  year[0..1] : Integer
+  /publisher[0..1] : Publisher {inverse of publishedBooks}
+}
+
+
+@enduml

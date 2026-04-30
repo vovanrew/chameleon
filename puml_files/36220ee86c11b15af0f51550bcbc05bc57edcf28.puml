@@ -1,0 +1,94 @@
+' Blob ID: 36220ee86c11b15af0f51550bcbc05bc57edcf28
+' Original Path: /diagrams/deployment.puml
+' Source: World of Code
+
+@startuml
+
+component "frontend-ingress" <<ingress>> as frontendingress
+component "order-service-ingress" <<ingress>> as orderingress
+component "credit-service-ingress" <<ingress>> as creditingress
+component "inventory-service-ingress" <<ingress>> as inventoryingress
+component "shipment-service-ingress" <<ingress>> as shipmentingress
+
+left to right direction
+
+cloud "Cluster" {
+    package "frontend" {
+        collections "frontend-pod" <<replicaset>> as frontendpod
+        component "frontend-svc" <<service>> as frontendsvc
+
+        frontendsvc -> frontendpod : route to
+    }
+
+    package "Order Service" {
+        collections "order-service-pod" <<replicaset>> as orderpod
+        component "order-service-svc" <<service>> as ordersvc
+
+        ordersvc -> orderpod : route to
+    }
+
+    package "Credit Service" {
+        collections "credit-service-pod" <<replicaset>> as creditpod
+        component "credit-service-svc" <<service>> as creditsvc
+
+        creditsvc -> creditpod : route to
+    }
+
+    package "Inventory Service" {
+        collections "inventory-service-pod" <<replicaset>> as inventorypod
+        component "inventory-service-svc" <<service>> as inventorysvc
+
+        inventorysvc -> inventorypod : route to
+    }
+
+    package "Shipment Service" {
+        collections "shipment-service-pod" <<replicaset>> as shipmentpod
+        component "shipment-service-svc" <<service>> as shipmentsvc
+
+        shipmentsvc -> shipmentpod : route to
+    }
+
+    package MongoDB {
+        collections "mongodb-cluster-pod" <<statefulset>> as mongopod
+        collections "mongodb-cluster-pv" <<persistentvolume>> as mongopv
+        component "mongodb-cluster-svc" <<service>> as mongosvc
+
+        mongosvc -> mongopod : route to
+        mongopod -> mongopv : persist on
+
+    }
+
+    creditsvc -[hidden]-> MongoDB
+
+    package RabbitMQ {
+        collections "rabbitmq-cluster-pod" <<statefulset>> as rabbitmqpod
+        collections "rabbitmq-cluster-pv" <<persistentvolume>> as rabbitmqpv
+        component "rabbitmq-cluster-svc" <<service>> as rabbitmqsvc
+
+        rabbitmqsvc -> rabbitmqpod : route to
+        rabbitmqpod -> rabbitmqpv : persist on
+    }
+
+    creditsvc -[hidden]-> RabbitMQ
+
+
+    orderpod --> rabbitmqsvc : AMQP
+    inventorypod --> rabbitmqsvc : AMQP
+    creditpod --> rabbitmqsvc : AMQP
+    shipmentpod --> rabbitmqsvc : AMQP
+
+    orderpod --> mongosvc : persist data in
+    inventorypod --> mongosvc : persist data in
+    creditpod --> mongosvc : persist data in
+
+}
+
+frontendingress -down-> frontendsvc : /*
+creditingress -down-> creditsvc : /credit
+inventoryingress -down-> inventorysvc : /inventory
+shipmentingress -down-> shipmentsvc : /shipment
+orderingress -down-> ordersvc : /order
+
+
+
+@enduml

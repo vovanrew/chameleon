@@ -1,0 +1,17 @@
+' Blob ID: 2c00ac254e042c8a87a504662f7be177e8460d60
+' Original Path: /component/puml/p.puml
+' Source: World of Code
+
+@startuml
+state "状態1" as S1
+state "状態2" as S2
+
+S1: 状態に関する説明その1
+S1: 状態に関する説明その2
+note left of S1: 一行注釈
+
+[*] --> S1: 始点から状態1へ
+S1 --> [*]
+S1 --> S2
+S2 --> [*]
+@enduml

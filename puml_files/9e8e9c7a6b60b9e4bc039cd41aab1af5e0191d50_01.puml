@@ -1,0 +1,56 @@
+' Blob ID: 9e8e9c7a6b60b9e4bc039cd41aab1af5e0191d50
+' Original Path: /docs/report/hla-diagrams.puml
+' Source: World of Code
+
+@startuml
+
+actor User as user
+
+rectangle "External service" {
+    (File server) as server
+    artifact "Application update" as update
+}
+
+rectangle "Internal services" {
+    rectangle "Business logic" {
+        rectangle "Application" {
+            (Application update) as update_app
+            (Application) as app
+            update_app --> app : обновляет файлы
+        }
+    }
+    rectangle "System components\nfor FLASK" {
+        (Message bus) as kafka
+        (Security monitor) as monitor
+    }
+    rectangle "Secure update" {
+        (Manager)
+        (Downloader) as downloader
+        (Verifier)
+        (Storage)
+        artifact "update files" as updates
+    }
+}
+
+app <- user: используя HTTP,\nработает с
+kafka -[#hide]> downloader
+downloader -[#hide]> update_app
+
+update ..> server: хранится в
+user -up-> server: используя REST,\nзапрашивает цифровую подпись\nобновления у
+downloader -up-> server: используя HTTP,\nскачивает из
+updates .up.> Storage: хранится в
+
+user --> Manager: HTTP: запрос обновления
+Manager -up-> downloader: запрос скачивания файла обновления
+Manager --> Storage: запись файла обновления
+Manager --> Verifier: запрос проверки обновления
+Verifier --> Storage: чтение файлов для проверки
+Manager -up-> update_app: запрос обновления файлом
+update_app --> Storage: запрос файла
+
+kafka --> monitor
+Storage -[#hide]--> kafka
+
+
+@enduml

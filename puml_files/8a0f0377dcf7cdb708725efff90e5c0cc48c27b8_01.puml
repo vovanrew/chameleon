@@ -1,0 +1,60 @@
+' Blob ID: 8a0f0377dcf7cdb708725efff90e5c0cc48c27b8
+' Original Path: /feature/timing-syntax.pu
+' Source: World of Code
+
+@startuml
+
+title
+  タイミング図の基本
+end title
+
+legend top center
+  = Desctiption
+
+  * ""concise"" は状態値を、""robust"" は汎用を表す
+
+  == Syntax
+
+  * ""robust "<longname>" as <alias>""
+
+  == 指定時点の状態を表す
+
+  # ""@<time>"" に続けて
+    ""<object> is <label>""
+  ** 状態を宣言しない場合は初期状態となる
+  # ""@<object>"" に続けて
+    ""<time> is <label>""
+
+  == 相対時間を指定する
+
+  * ""@+10"": 10 単位時間後の経過を表す
+
+  == 非表示 (concise 限定)
+
+  * ""{-}"", ""{hidden}"" は非表示状態を表す
+
+  == 時間制約
+
+  * ""<object>@<time_from> <-> <time_to> : <label>""
+
+  == スケール設定
+
+  * ""scale <time> as <size> pixels""
+end legend
+
+robust "browser" as WB
+concise "user" as WU
+
+@0
+WB is idle
+WU is idle
+
+@WB
++100 is processing
+@+0 <-> @+50 : { 50 ms lag }
+
+@WU
+200 is {-}
+300 is {hidden}
+
+@enduml

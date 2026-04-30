@@ -1,0 +1,66 @@
+' Blob ID: d23e736b92f853f9cd09828754d93a8144c60a46
+' Original Path: /src/cleonproject.deliverables.architecture.model.architecture/src/cleon.architecturemethods.itarc42.sample/img/cleon_architecturemethods_itarc42_ikt/Deploymentdiagramm_Infrastruktur-Ebene_2__TN_EAZS__907___Teilnetz__Produktions-Umgebung.puml
+' Source: World of Code
+
+@startuml
+
+
+skinparam monochrome true
+skinparam componentStyle uml2
+!include <office/servers/server_generic_blue>
+!include <office/servers/virtual_application_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/file_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/domain_controller>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/services/central_management_service>
+!include <office/servers/server_generic_blue>
+!include <office/servers/virtual_application_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/file_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/domain_controller>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/Servers/virtual_server>
+!include <office/Servers/windows_server>
+!include <office/services/central_management_service>
+
+show stereotype
+
+rectangle TN__F_EAZS__F___N_907__O_ as "TN EAZS (907)" <<Teilnetz>> {
+	rectangle VMH__S_907__S_BABS__S_00__F___N_HPE__O_ as "VMH-907-BABS-00 (HPE)" <<$server_generic_blue>> {
+		rectangle VMH__S_907__S_BABS__S_00__F__aA_EAZS_aC_ as "VMH-907-BABS-00 [EAZS]" <<$virtual_application_server>> {
+		
+		}
+	}
+	rectangle VMH__S_907__S_BABS__S_10__F___N_HPE__O_ as "VMH-907-BABS-10 (HPE)" <<$server_generic_blue>> {
+		rectangle VMH__S_907__S_BABS__S_10__F__aA_EAZS_aC_ as "VMH-907-BABS-10 [EAZS]" <<$virtual_application_server>> {
+		
+		}
+	}
+}
+
+
+' Begin Protected Region [[layouting]]
+
+' End Protected Region   [[layouting]]
+
+@enduml
+' Actifsource ID=[dc5bfacd-eaac-11e8-88d3-bfc6b992bdec,c7ad1496-0eb1-11e9-9f19-6d15636f4ecc,Hash]

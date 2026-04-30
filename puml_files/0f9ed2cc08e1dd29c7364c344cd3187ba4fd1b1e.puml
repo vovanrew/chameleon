@@ -1,0 +1,60 @@
+' Blob ID: 0f9ed2cc08e1dd29c7364c344cd3187ba4fd1b1e
+' Original Path: /diagrams/architecture.puml
+' Source: World of Code
+
+@startuml
+
+skinparam ArrowColor #red
+skinparam ComponentBorderColor #black
+skinparam DatabaseBackgroundColor #white
+skinparam DefaultFontSize 18
+skinparam DefaultTextAlign center
+skinparam NodeBackgroundColor #white
+skinparam Padding 3
+skinparam Shadowing false
+
+skinparam rectangle {
+  RoundCorner 20
+  BackgroundColor<<Container>> #D9EAD3
+  RoundCorner<<Container>> 0
+}
+
+title <size:36>Architecture<size:22>
+
+header
+<font color=red>Note</font>
+There are actually 2 Availability Zones,
+not sure how to show them here :-(
+endheader
+
+cloud "AWS Region\n" {
+  [ECS Cluster] as ECS
+
+  rectangle VPC {
+    rectangle "Public Subnets" as PUBLIC #CFE2F3 {
+      node "Application\nLoad Balancer" as ALB
+      node Bastion
+    }
+    rectangle "Private Subnets" as PRIVATE #CFE2F3 {
+      rectangle "Auto Scaling Group" #D9D2E9 {
+        node "ECS Instance\n" {
+          rectangle Hello <<Container>>
+          rectangle Kong <<Container>>
+        }
+      }
+    }
+    rectangle "                 Database Subnets             " as DATABASE #CFE2F3 {
+      database "PostgreSQL" as Postgres
+    }
+  }
+}
+
+ALB ---> Kong
+Kong -> Hello
+Kong ---> Postgres
+
+PUBLIC -[hidden]-> PRIVATE
+PRIVATE -[hidden]-> DATABASE
+ECS -[hidden]-> VPC
+
+@enduml

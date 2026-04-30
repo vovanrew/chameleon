@@ -1,0 +1,10 @@
+' Blob ID: 141805683726773456f09274fec50ce7f6b1ecf3
+' Original Path: /UML/loop.puml
+' Source: World of Code
+
+@startuml
+start
+:Init System;
+
+end
+@enduml

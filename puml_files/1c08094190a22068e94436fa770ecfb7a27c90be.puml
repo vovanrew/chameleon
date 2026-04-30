@@ -1,0 +1,23 @@
+' Blob ID: 1c08094190a22068e94436fa770ecfb7a27c90be
+' Original Path: /docs/diagrams/general.uml
+' Source: World of Code
+
+@startuml
+
+skinparam package {
+    backgroundColor<<this repository>> LightBlue
+} 
+
+package pytown_core <<this repository>>
+package pytown_model 
+package pytown_client
+package pytown_server
+
+pytown_core <.. pytown_model
+pytown_core <.. pytown_client
+pytown_core <.. pytown_server
+pytown_model <.. pytown_client
+pytown_model <.. pytown_server
+
+@enduml
+

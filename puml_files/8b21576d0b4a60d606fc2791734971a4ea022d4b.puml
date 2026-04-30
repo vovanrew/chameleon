@@ -1,0 +1,27 @@
+' Blob ID: 8b21576d0b4a60d606fc2791734971a4ea022d4b
+' Original Path: /docs/design_overview.puml
+' Source: World of Code
+
+@startuml
+
+skinparam defaultTextAlignment center
+
+node "Login server host" {
+  rectangle "taserver login server" as talogin
+}
+node "Player's computer" {
+  rectangle "TribesAscend.exe\n(game client)" as taclient
+}
+node "Game server host" {
+  rectangle "taserver game launcher" as talauncher
+  rectangle "TribesAscend.exe\n(dedicated server)" as taserver {
+    rectangle "taserver/TAmods game controller" as tacontroller
+  }
+}
+
+taclient --> talogin
+taclient --> taserver
+talogin <-- talauncher
+talauncher <-- tacontroller
+
+@enduml

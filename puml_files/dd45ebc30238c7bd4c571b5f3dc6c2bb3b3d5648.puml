@@ -1,0 +1,72 @@
+' Blob ID: dd45ebc30238c7bd4c571b5f3dc6c2bb3b3d5648
+' Original Path: /arch/componentDiagram.uml
+' Source: World of Code
+
+@startuml
+
+title "Component Diagram - Present"
+
+
+skinparam rectangle {
+    BackgroundColor LightYellow
+    BackgroundColor<<Library>> PaleGreen
+    BackgroundColor<<AWS>> #fcba03
+}
+skinparam package {
+    BackgroundColor LightYellow
+    BackgroundColor<<Library>> PaleGreen
+    BackgroundColor<<AWS>> #ffecb8
+}
+
+
+package Frontend as "React.js SPA"{
+  rectangle httpsClient
+  rectangle websocketClient
+}
+
+package Lambda<<AWS>> as "Domain Lambda 1" {
+  rectangle controller as "NestJS Controller"
+  rectangle service1 as "service"
+  rectangle storage1 as "storage"
+  rectangle broadcaster1 as "broadcaster"
+  rectangle DynamoDBToolbox1 as "DynamoDBToolbox"
+  controller --> service1
+  service1 <--> storage1
+  service1 -> broadcaster1
+  broadcaster1 -> storage1
+  storage1 --> DynamoDBToolbox1
+}
+
+package Lambda2<<AWS>> as "Domain Lambda 2" {
+  rectangle handler
+  rectangle service2 as "service"
+  rectangle storage2 as "storage"
+  rectangle broadcaster2 as "broadcaster"
+  rectangle DynamoDBToolbox2 as "DynamoDBToolbox"
+  handler --> service2
+  service2 <--> storage2
+  service2 -> broadcaster2
+  broadcaster2 -> storage2
+  storage2 --> DynamoDBToolbox2
+}
+
+httpsClient --> controller
+
+rectangle ApiGatewayIn<<AWS>>
+rectangle ApiGatewayOut<<AWS>>
+
+httpsClient --> ApiGatewayIn
+websocketClient --> ApiGatewayIn
+ApiGatewayIn --> handler
+ApiGatewayIn --> controller
+broadcaster1 ---> ApiGatewayOut
+broadcaster2 ---> ApiGatewayOut
+
+ApiGatewayOut --> websocketClient
+
+rectangle DynamoDB<<AWS>>
+
+DynamoDBToolbox1 --> DynamoDB
+DynamoDBToolbox2 --> DynamoDB
+
+@enduml

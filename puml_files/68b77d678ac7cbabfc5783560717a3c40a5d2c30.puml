@@ -1,0 +1,32 @@
+' Blob ID: 68b77d678ac7cbabfc5783560717a3c40a5d2c30
+' Original Path: /designPattern/dplearn/dplearn-base/src/test/java/com/ljs/learn/pattern/memento/improve/improve_uml.puml
+' Source: World of Code
+
+@startuml
+
+class Memento{
+    - atk: int
+    - def: int
+}
+
+class GameRole{
+    - atk: int
+    - def: int
+    + createMemento():Memento
+}
+
+class Caretaker{
+    - mementos:ArrayList<Memento>
+}
+
+class Client{
+
+}
+
+GameRole ..right.> Memento
+
+Client ..> GameRole
+Client ..> Memento
+
+Memento --o Caretaker
+@enduml

@@ -1,0 +1,21 @@
+' Blob ID: e266e206175ff34d89505e644e3d529cbc425143
+' Original Path: /DiagramasEstado/DiagramaDeEstado.puml
+' Source: World of Code
+
+@startuml
+
+EnCreacion: Estado = "E"
+Creado: Estado = "C"
+Vendido: Estado = "V"
+Expirado: Estado = "C" AND
+Expirado: this.estaExpirado()
+
+[*] --> EnCreacion: GestorPresupuestos.\ncrear\n(p Presupuestos)
+EnCreacion --> Creado: this.\npasarACreado()
+Creado --> Vendido: GestorPresupuestos.\ntransformarPresupuestosEnVenta\n(lp List<LineasPresupuesto>)
+Creado --> Expirado
+Vendido --> Creado: GestorVentas.\nborrar\n(venta Ventas)
+EnCreacion --> [*]: GestorPresupuestos.\nborrar\n(p Presupuestos)
+Creado --> [*]: GestorPresupuestos.\nborrar\n(p Presupuestos)
+
+@enduml

@@ -1,0 +1,21 @@
+' Blob ID: b175839175ffdebf1ad97a0f9fc7a4370b9e014d
+' Original Path: /例題3_UC_図書館システム.pu
+' Source: World of Code
+
+@startuml
+left to right direction
+actor 利用者 as user #DDDDDD;line:black;line.bold;
+actor 管理者  as admin#DDDDDD;line:black;line.bold;
+rectangle 図書館システム {
+usecase  ユーザーを登録する as T << U1 >>
+usecase ユーザを認証する << U2 >>
+usecase 図書を検索する << U3 >>
+usecase 貸出をうける << U4 >>
+}
+user --> T:<< 登録 >>
+user --> ユーザを認証する:<< 認証 >>
+user --> 図書を検索する:<< 検索 >>
+user --> 貸出をうける:<< 貸出 >>
+T <-- admin
+貸出をうける <-- admin
+@enduml

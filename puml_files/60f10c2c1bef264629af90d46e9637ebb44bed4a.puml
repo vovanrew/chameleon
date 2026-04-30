@@ -1,0 +1,29 @@
+' Blob ID: 60f10c2c1bef264629af90d46e9637ebb44bed4a
+' Original Path: /router_delegate_processing.puml
+' Source: World of Code
+
+@startuml
+component RouteInformationProvider
+component BaseInformationParser
+actor Program
+component BaseRouterDelegate {
+    component NavigationReducer
+    component StatesVirtualizer
+    component RouteStackMerger
+    component Router
+}
+
+
+RouteInformationProvider --> BaseInformationParser : path: RouteInformation
+BaseInformationParser --> RouteInformationProvider #blue : path: RouteInformation
+BaseRouterDelegate --> BaseInformationParser #blue : stack: StatesStack
+BaseInformationParser --> RouteStackMerger : stack: StatesStack
+RouteStackMerger --> StatesVirtualizer : stack: StatesStack
+Program --> NavigationReducer : event: Event
+Program --> BaseRouterDelegate : pop
+NavigationReducer --> StatesVirtualizer : stack: StatesStack
+NavigationReducer --> NavigationReducer : stack: StatesStack
+StatesVirtualizer --> Router : resultStates: List<State>
+
+
+@enduml

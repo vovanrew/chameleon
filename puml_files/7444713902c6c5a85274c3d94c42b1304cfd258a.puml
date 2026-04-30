@@ -1,0 +1,30 @@
+' Blob ID: 7444713902c6c5a85274c3d94c42b1304cfd258a
+' Original Path: /doc/UML/getListDeliverySecuence.puml
+' Source: World of Code
+
+@startuml
+hide footbox
+autonumber
+
+box "FRONTEND"
+participant ListDeliveryScreen
+end box
+
+box "BACKEND"
+participant API
+participant database
+end box
+
+
+ListDeliveryScreen -> API: GET /deliveries\n{ "token": "hash_token" }
+API -> API: validar_token
+API -> API: Extraer UserID del token
+
+group if (token valid)
+API -> database: consultar data con el UserID
+database -> ListDeliveryScreen: ListDelivery\n{\n\tstatus:"SUCCESS", \n\terrors:{...}, \n\tdata:{...}\n}
+else
+  API -> ListDeliveryScreen:{\n\tstatus:"ERROR_TOKEN", \n\terrors:{...}, \n\tdata:{...}\n}
+end
+
+@enduml

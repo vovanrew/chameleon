@@ -1,0 +1,141 @@
+' Blob ID: 3ce58f61429a7336a1dafc340911bb96dffc505d
+' Original Path: /ConstantData/ConstantData_OnKeysEventsSubscribeService_v-010.puml
+' Source: World of Code
+
+@startuml
+state Redis #red {
+    state RedisKeyEventUpdate #coral
+}
+
+state ConstantData #lightgray {
+
+    state CheckKeyUpdateConstants #lightblue{
+        state keyToUpdate #magenta
+        keyToUpdate : = "update"
+        state IDictionary_updatedConstants #lightgreen
+        IDictionary_updatedConstants : _cache.Fetch(keyToUpdate)
+
+    }
+    CheckKeyUpdateConstants : (eventKeyUpdateConstants)
+
+    keyToUpdate --> IDictionary_updatedConstants
+
+    state FetchValueOfPropertyOfProperty #lightblue
+    FetchValueOfPropertyOfProperty : (finalPropertyToSet, key)
+
+    state FetchValueOfProperty #lightblue
+    FetchValueOfProperty :
+
+
+    state UpdatedValueAssignsToProperty #lightblue{
+        state entry1 <<entryPoint>>
+  state exitTRUE <<exitPoint>>
+  state exitFALSE <<exitPoint>>
+
+        state setWasUpdated #yellow
+        setWasUpdated : = bool
+
+        state constantType #yellow
+        constantType : = object
+
+        state finalPropertyToSet #magenta
+        finalPropertyToSet : = "Value"
+
+        state ForEach_1 #orange
+        ForEach_1 : (updatedConstant in \nupdatedConstants)
+
+        state updatedConstant #yellow
+        updatedConstant : (key, value)
+
+        state constantWasUpdated #yellow
+        
+        state existsConstant #yellow
+
+state SetValue #lightgreen
+SetValue : (value -> constantType)
+
+        state constantWasUpdatedEQvalue  <<choice>>
+        constantWasUpdatedEQvalue -[#blue,bold]-> setWasUpdated : true
+        constantWasUpdatedEQvalue -[#green,bold]-> NONE : false
+
+
+
+        state existsConstantNEQvalue  <<choice>>
+        existsConstantNEQvalue -[#blue,bold]-> FetchValueOfProperty : true
+        existsConstantNEQvalue -[#green,bold]-> NONE : false
+
+        state constantTypeIsnull  <<choice>>
+        constantTypeIsnull -[#blue,bold]-> exitFALSE : true
+        constantTypeIsnull -[#green,bold]-> SetValue : false
+
+SetValue --> constantWasUpdated
+constantType --> constantTypeIsnull
+
+        existsConstant --> existsConstantNEQvalue
+        constantWasUpdated --> constantWasUpdatedEQvalue
+        finalPropertyToSet --> constantWasUpdatedEQvalue
+        entry1 -down-> setWasUpdated
+        entry1 -down-> ForEach_1
+        ForEach_1 --> updatedConstant
+setWasUpdated -down-> exitTRUE
+    }
+
+    UpdatedValueAssignsToProperty :
+
+    finalPropertyToSet --> FetchValueOfPropertyOfProperty
+    updatedConstant --> FetchValueOfPropertyOfProperty : key
+    
+FetchValueOfPropertyOfProperty --> constantWasUpdated
+FetchValueOfPropertyOfProperty --> existsConstant
+
+FetchValueOfProperty --> constantType
+
+
+
+    state OnKeysEventsSubscribeService #lightblue{
+
+        state SubscribeOnEventUpdate #lightgreen{
+            state _EventsSubscribe_Update #lightgreen
+            _EventsSubscribe_Update : (eventKeyUpdateConstants)
+
+            state SetRemoveBlockToCall #orange
+            SetRemoveBlockToCall : block to twice call \nCheckKeyUpdateConstants
+            state BlockTwiceEventUpdate #orange
+            BlockTwiceEventUpdate : block to twice call \nCheckKeyUpdateConstants
+            state _flagToBlockEventUpdate <<choice>>
+            _flagToBlockEventUpdate -[#blue,bold]-> BlockTwiceEventUpdate : true
+            _flagToBlockEventUpdate -[#green,bold]-> SetRemoveBlockToCall : false
+
+        }
+        SubscribeOnEventUpdate : (constantsSet, constantsStartGuidField) \nподписываемся на ключ сообщения \nо появлении обновления констант
+        _EventsSubscribe_Update --> _flagToBlockEventUpdate
+        SetRemoveBlockToCall --> BlockTwiceEventUpdate
+        BlockTwiceEventUpdate --> CheckKeyUpdateConstants
+
+
+
+
+
+        state Return_TRUE #Red
+        Return_TRUE : return true - key was set
+
+
+
+
+
+
+
+        state isRefExisted <<choice>>
+        isRefExisted -[#blue,bold]-> maxVersionIncrement : true
+        isRefExisted -[#green,bold]-> maxVersionSet1 : false
+    }
+    OnKeysEventsSubscribeService :
+
+    RedisKeyEventUpdate --> _EventsSubscribe_Update
+
+
+
+
+}
+
+@enduml

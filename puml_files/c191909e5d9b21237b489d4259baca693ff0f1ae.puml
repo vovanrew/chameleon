@@ -1,0 +1,36 @@
+' Blob ID: c191909e5d9b21237b489d4259baca693ff0f1ae
+' Original Path: /UML.puml
+' Source: World of Code
+
+@startuml
+autonumber
+skinparam defaultFontName Osaka
+' scale 2
+' left to right direction
+' title mlflowを使った学習・予測
+actor "AI trainer" as trainer
+actor "API user" as user
+box "Local Dev"
+participant preprocess
+participant "ML model" as model
+end box
+box "MLflow" #LightGreen
+participant "Tracking metrics/Logging artifacts" as mlflow
+end box
+box "AzureML" #LightBlue
+participant "Models" as builder
+participant "Endpoints" as serving
+end box
+' trainer -> mlflow: Start experiment
+trainer -> preprocess: Preprocess train/test data
+trainer -> model: Fit the ML model
+trainer -> mlflow: Log preproc and ML models
+trainer -> mlflow: mlflow.azureml.build_image of MLflow model
+mlflow -> builder: MLflow model
+trainer -> serving: Deploy AciWebservice (REST API) from Docker image
+serving -> builder: Get image
+user -> serving: Prediction data JSON
+' serving -> preprocess: Preprocess prediction data
+' serving -> model: Predict
+' serving -> user: Prediction result JSON
+@enduml

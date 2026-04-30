@@ -1,0 +1,42 @@
+' Blob ID: 820f683b3d55bf605b1f1dddd603f7a80be01fdf
+' Original Path: /plantuml/adapter-pattern.puml
+' Source: World of Code
+
+@startuml
+class Client{
+}
+
+interface Target{
+    request()
+}
+
+class Adapter{
+    request()
+}
+
+interface AnotherTarget{
+    specificRequest()
+}
+
+class Adaptee{
+    specificRequest()
+}
+
+
+Client -right-> Target
+Target <|.. Adapter
+AnotherTarget <|.. Adaptee
+
+Adapter-right->Adaptee
+
+
+note bottom of Client
+ 客户只看到目标接口
+end note
+
+
+note right of Adaptee
+所有的请求都被委托给被是配者
+end note
+
+@enduml

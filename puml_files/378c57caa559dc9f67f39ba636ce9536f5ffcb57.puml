@@ -1,0 +1,25 @@
+' Blob ID: 378c57caa559dc9f67f39ba636ce9536f5ffcb57
+' Original Path: /60030041/state diagram1.puml
+' Source: World of Code
+
+@startuml
+skinparam Shadowing false
+skinparam state{
+    BackgroundColor pink 
+}
+[*]-> received
+Searched:searched book
+canceled:
+Display:Product details
+Receipt:
+wanted:Buy Book
+received --> Searched
+Searched -right-> canceled:reject
+canceled --> received
+Searched --> Display
+Display --> wanted
+wanted -right-> canceled:reject
+wanted --> Receipt
+Receipt -right-> [*]
+canceled --> [*]
+@enduml

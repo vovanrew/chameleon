@@ -1,0 +1,21 @@
+' Blob ID: 850db5546d586f09e2f0f3fa0233c4a775d1508d
+' Original Path: /plantUML/adjacentMatrix.puml
+' Source: World of Code
+
+@startuml
+
+object A
+object B
+object C
+object D
+object E
+
+B -- C
+B -- D
+C -- A
+B -- A
+B -- E
+
+
+
+@enduml

@@ -1,0 +1,28 @@
+profiles:
+  - name: default
+    theme: null
+    skinparams: {}
+    handwritten: false
+
+  - name: whiteboard
+    theme: sketchy
+    skinparams:
+      defaultFontName: "Comic Sans MS"
+    handwritten: true
+
+  - name: corporate
+    theme: bluegray
+    skinparams:
+      shadowing: true
+    handwritten: false
+
+  - name: dark
+    theme: hacker
+    skinparams: {}
+    handwritten: false
+
+sampling:
+  - { profile: default, probability: 0.25 }
+  - { profile: whiteboard, probability: 0.25 }
+  - { profile: corporate, probability: 0.25 }
+  - { profile: dark, probability: 0.25 }

@@ -1,0 +1,95 @@
+' Blob ID: 22b838f68355c106e16c3111b2c923d3714d4922
+' Original Path: /uml/blog-class.puml
+' Source: World of Code
+
+@startuml
+
+package django.models {
+    class Form
+    class ModelForm
+}
+
+package django.db.models {
+    class Model
+}
+
+package models {
+    class Category {
+        name
+        __str__()
+    }
+    class Tag {
+        name
+        __str__()
+    }
+    class AnswerPostBase {
+        excerpt
+        modified_time
+        created_time
+        body
+        title
+        views
+        author
+        __str__()
+        save()
+        increase_views()
+    }
+    class Post {
+        tags
+        category
+        get_absolute_url()
+    }
+    class Answer {
+        post
+        tags
+        get_absolute_url()
+    }
+    class Liked {
+        user
+        post
+    }
+
+    Post --|> AnswerPostBase
+    Answer --|> AnswerPostBase
+
+    Category "1" -- "n" Post
+    Post "1" -- "n" Answer
+    Post "n" -- "n" Tag
+    Answer "n" -- "n" Tag
+
+
+    Category --|> Model
+    Liked --|> Model
+    Answer --|> Model
+    Post --|> Model
+    Tag --|> Model
+}
+
+
+package form {
+    class ArticlePostForm {
+        tags
+        category
+        body
+        title
+    }
+    class ArticleForm
+    class AnswerForm {
+        tags
+        body
+        title
+    }
+    class AnswerPostForm
+
+    ArticlePostForm --|> Form
+
+    ArticleForm --|> ModelForm
+    ArticleForm --o Post
+
+    AnswerForm --|> Form
+
+    AnswerPostForm --|> ModelForm
+    AnswerPostForm --o Answer
+}
+
+@enduml

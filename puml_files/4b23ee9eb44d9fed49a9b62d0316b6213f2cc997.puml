@@ -1,0 +1,43 @@
+' Blob ID: 4b23ee9eb44d9fed49a9b62d0316b6213f2cc997
+' Original Path: /chat-activity.pu
+' Source: World of Code
+
+@startuml
+
+skinparam monochrome reverse
+start
+    :掲示板に入る;
+    if (キャラクターアイコンをクリックされたら) then (yes)
+        :キャラクターのリストを表示させる;
+        note right
+        アイコンリストの表示、非表示は滑らかに
+        end note
+        if (別のキャラクターがクリックされたら) then (yes)
+            :ローカルストレージのcharacter_idを書き換える;
+            :キャラクターのアイコンを入れ替えた状態でリストを閉じる;
+        endif
+    endif
+    if (送信ボタンを押したら) then (yes)
+        if (コメントが書かれていたら) then (yes)
+            :コメントを投稿する;
+        else (no)
+            :送信ボタンをクリックできないようにする;
+        endif
+    endif
+
+    if (すでにあるコメントの返信ボタンを押したら) then (yes)
+        :そのコメントの下にテキストボックスをスライドで表示させる;
+        note right
+        返信ボタンを押したらコメントidで引っ張ってきたコメントレコードをデータとして
+        返信ボックス用のコンポーネントに渡す
+        end note
+        if (返信ボタンを押したら) then (yes)
+            if (コメントが書かれていたら) then (yes)
+                :コメントを返信する;
+            else (no)
+                :送信しないようにする（返信ボタンが反応しないようにする);
+            endif
+        endif
+    endif
+end
+@enduml

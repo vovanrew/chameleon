@@ -1,0 +1,16 @@
+' Blob ID: d31a44179960c6a7bcbeda311980cb35a99f5dda
+' Original Path: /figures/alice-bob-scheduler-oracle.wsd
+' Source: World of Code
+
+@startuml
+skinparam defaultTextAlignment center
+
+start
+if (oracle) then (0)
+    :Reception\nautonomous\nstep;
+else (1)
+    :Transmission\nautonomous\nstep;
+endif
+stop
+
+@enduml

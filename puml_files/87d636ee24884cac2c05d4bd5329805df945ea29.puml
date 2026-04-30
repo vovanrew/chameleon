@@ -1,0 +1,28 @@
+' Blob ID: 87d636ee24884cac2c05d4bd5329805df945ea29
+' Original Path: /src/KNX/03/02/02/Frame_Format_2.plantuml
+' Source: World of Code
+
+@startuml
+
+robust "local state" as local
+robust "remote state" as remote
+concise "p_class" as class
+concise "p_data" as data
+
+@0
+local is "inner_frame_char_requested"
+remote is "inner_frame_char_indicated"
+
+@1
+local is "wait_for_ack"
+remote is "ack_requested_wait"
+class is ack
+data is "Ack"
+
+@2
+local is "idle"
+remote is "idle"
+class is idle
+data is Idle
+
+@enduml

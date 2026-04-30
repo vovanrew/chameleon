@@ -1,0 +1,33 @@
+' Blob ID: db5c451e629871785baf525753c266b4406e9afe
+' Original Path: /docs/implementation-view/package-classes.tlp-gui.app.diagram.3.wsd
+' Source: World of Code
+
+@startuml
+
+package testlink-plugin-gui <<Angular>> #ef9a9a {
+    package src {
+        package app #ef5350 {
+            package testlink-plugin #ef9a9a {
+                package dashboard #ef9a9a {
+                    class DashboardComponent
+                    package "test-build" as testBuild #ef9a9a {
+                        class TestBuildComponent
+                    }
+                    package "test-runner" as testRunner #ef9a9a {
+                        class TestRunnerComponent
+                    }
+                }
+                package instances #ef9a9a {
+                    package "dashboard" as dashboard2 #ef9a9a {
+                        class "DashBoardComponent" as dashboardComponent_2
+                    }
+                    package login #ef9a9a {
+                        class LoginComponent
+                    }
+
+                }
+            }
+        }
+    }
+}
+@enduml

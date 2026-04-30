@@ -1,0 +1,107 @@
+' Blob ID: c9c3884f3c3f30da373b023b2db7d5a496527eb7
+' Original Path: /ansible/travis-ansible/k8s.plantuml
+' Source: World of Code
+
+@startuml
+
+'actor actor
+'agent agent
+'artifact artifact
+'boundary boundary
+'cloud cloud
+'component component
+'control control
+'database database
+'entity entity
+'folder folder
+'frame frame
+'interface  interface
+'node node
+'package package
+'queue queue
+'rectangle rectangle
+'storage storage
+
+'node node1
+'node node2
+'node node3
+'node node4
+'node node5
+
+'node1 -- node2
+'node1 .. node3
+'node1 ~~ node4
+'node1 == node5
+
+
+'cloud cloud1
+'cloud cloud2
+'cloud cloud3
+'cloud cloud4
+'cloud cloud5
+'cloud1 -0- cloud2
+'cloud1 -0)- cloud3
+'cloud1 -(0- cloud4
+'cloud1 -(0)- cloud5
+
+'usecase usecase [
+'这是个 <b>用例
+'----
+'您可以使用
+'====
+'不同类型
+'....
+'的分隔符
+']
+
+'Alice -> Bob : Hello
+'legend left
+'  Short
+'  legend
+'endlegend
+
+'scale 180*90
+
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 2
+skinparam titleBorderColor red
+skinparam titleBackgroundColor Aqua-CadetBlue
+
+'title
+' <u>Simple</u> communication example
+' on <i>several</i> lines and using <back:cadetblue>creole 'tags</back>
+'end title
+
+
+'header
+'<font color=red>Warning:</font>
+'Do not use in production.
+'endheader
+
+'center footer Generated for demonstration
+
+
+
+actor Users
+agent cdn
+agent nginx
+node ingress
+agent service
+agent pod
+database db
+
+Users -> cdn: "im.wtalking.chat"
+cdn -> nginx
+nginx -[#blue]> ingress
+
+
+
+ingress --> service
+
+
+service -left-> pod
+pod --> db
+
+
+
+@enduml

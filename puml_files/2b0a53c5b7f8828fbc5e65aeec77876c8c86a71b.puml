@@ -1,0 +1,177 @@
+' Blob ID: 2b0a53c5b7f8828fbc5e65aeec77876c8c86a71b
+' Original Path: /Src/ForciblyExcursionClient/ForciblyExcursionClient/ForciblyExcursionClient.puml
+' Source: World of Code
+
+@startuml
+
+actor ゲート担当
+database マスターデータCSV
+database AWS
+database 走行記録データCSV
+actor ランナー
+database 全走行記録データCSV
+
+== アプリ起動 ==
+
+ゲート担当 -> Program: 起動
+activate Program
+
+' マスターデータのダウンロード＆読込
+create FormMain
+Program -> FormMain: 起動
+Activate FormMain
+
+create MasterData
+FormMain -> MasterData: 生成
+Activate MasterData
+FormMain -> MasterData: マスターデータのダウンロード
+MasterData -> AWS: マスタデータのダウンロード(HTTP)
+alt 読み込み成功
+AWS --> MasterData:
+MasterData -> マスターデータCSV: 書込
+end
+MasterData -> マスターデータCSV: マスターデータの読込
+
+' 走行記録データ読込
+create ResultData
+FormMain -> ResultData: 生成
+Activate ResultData
+ResultData -> 走行記録データCSV: 走行記録データの読込
+走行記録データCSV --> ResultData
+FormMain -> FormMain: 走行記録データの画面反映
+Deactivate ResultData
+
+create UploadData
+FormMain -> UploadData: 生成
+Activate UploadData
+
+create NFCHandler
+FormMain -> NFCHandler: NFCカードリーダライブラリの初期化
+Activate NFCHandler
+        NFCHandler -> NFCHandler: Init
+
+FormMain -> NFCHandler: NFCカードリーダの検知開始
+create NFCThread
+NFCHandler -> NFCThread: ポーリング開始
+Activate NFCThread
+loop
+    NFCThread -> NFCThread: NFCカードのポーリング
+end
+
+' ブラウザの表示
+create FormBrowse
+FormMain -> FormBrowse: ブラウザの表示
+Activate FormBrowse
+
+== NFCカード検知 ==
+
+' ユーザがカードを置く
+ランナー -> Program: カードをかざす
+NFCThread -> Program: カード検知
+NFCThread -> FormMain: カード検知ハンドラ呼び出し
+
+' 検知音再生
+create Task
+note right Task
+    アップロードのタスクを呼び出したら
+    戻りを待たずに次の処理を行う
+end note
+FormMain -> Task: 検知音再生タスク生成
+Activate Task
+    Task -> Task: 検知音再生
+Deactivate Task
+
+' ユーザ検索
+FormMain -> MasterData: UIDをもとにユーザ検索
+create Runner
+MasterData -> Runner: 検索結果生成
+Runner --> FormMain: 検索結果返却
+
+FormMain -> FormMain: 見つかったランナーでアップロードを開く
+    create FormUpload
+    FormMain -> FormUpload: アップロードフォームの生成/ランナー情報の表示
+    Activate FormUpload
+    
+    alt リタイア
+        ゲート担当 -> FormUpload: リタイア選択
+    end
+    
+    ゲート担当 -> FormUpload: 送信ボタン押下
+    FormUpload -> UploadData: アップロード用CSV生成
+    database UplodadCSV
+    Activate UplodadCSV
+    UploadData -> UplodadCSV: アップロード用CSV生成
+    FormUpload --> FormMain: アップロード用CSVのパスを返却
+Deactivate FormUpload
+destroy FormUpload
+
+create Task
+note right Task
+    アップロードのタスクを呼び出したら
+    戻りを待たずに次の処理を行う
+end note
+FormMain -> Task: 記録アップロードタスク生成
+Activate Task
+    Task -> FormMain: データグリッドにアップロード中の情報をセット
+    Task -> UploadData: アップロード
+    UploadData -> UplodadCSV: アップロード用CSVの取得
+    UploadData -> AWS: アップロード
+    AWS --> UploadData: アップロード結果返却
+    UploadData --> Task: アップロード結果返却
+    alt アップロード成功
+        Task -> FormMain: データグリッドにアップロード完了の情報をセット
+        Task -> 全走行記録データCSV: アップロード情報の追加
+        Task -> FormBrowse: 関門順位の表示
+    else アップロード失敗
+        Task -> FormMain: エラーメッセージ表示
+    end
+Deactivate
+
+== 手動アップロード ==
+ゲート担当 -> FormMain: 手動送信押下
+FormMain -> FormMain: ランナーなしでアップロードを開く
+    create FormUpload
+    FormMain -> FormUpload: アップロードフォームの生成/表示
+    Activate FormUpload
+
+    ' ユーザ検索
+    ゲート担当 -> FormUpload: ユーザの検索
+    FormUpload -> MasterData: 学年、組、出席番号をもとにユーザ検索
+    create Runner
+    MasterData -> Runner: 検索結果生成
+    Runner --> FormUpload: 検索結果返却
+
+    alt リタイア
+        ゲート担当 -> FormUpload: リタイア選択
+    end
+    
+    ゲート担当 -> FormUpload: 送信ボタン押下
+    FormUpload -> UploadData: アップロード用CSV生成
+    database UplodadCSV
+    Activate UplodadCSV
+    UploadData -> UplodadCSV: アップロード用CSV生成
+    FormUpload --> FormMain: アップロード用CSVのパスを返却
+Deactivate FormUpload
+destroy FormUpload
+
+ref over ゲート担当,UplodadCSV
+    NFCカード検知の送信処理を参照
+end ref
+
+== 初期設定 ==
+ゲート担当 -> FormMain: 初期設定ボタン押下
+create FormSetting
+FormMain -> FormSetting: 初期設定画面表示
+Activate FormSetting
+    ゲート担当 -> FormSetting: 関門情報設定
+    ゲート担当 -> FormSetting: 設定保存
+Deactivate FormSetting
+destroy FormSetting
+FormMain -> FormMain: 画面上の関門情報更新
+
+== アプリ終了 ==
+ゲート担当 -> FormMain: ペケボタン押下
+destroy FormMain
+destroy Program
+
+@enduml

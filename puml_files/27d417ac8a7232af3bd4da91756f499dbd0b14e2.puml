@@ -1,0 +1,35 @@
+' Blob ID: 27d417ac8a7232af3bd4da91756f499dbd0b14e2
+' Original Path: /puml/scc-zookeeper-setup.puml
+' Source: World of Code
+
+@startuml
+skinparam monochrome true
+'scale 10
+
+node "Client Application A" {
+  "RefreshEndpoint" as [RefreshEndpointA]
+  "Zookeeper Client" as [SpringCloudConfigA]
+  [RefreshEndpointA] -d-> [SpringCloudConfigA]: Refresh
+}
+
+node "Client Application B" {
+  "RefreshEndpoint" as [RefreshEndpointB]
+  "Zookeeper Client" as [SpringCloudConfigB]
+  [RefreshEndpointB] -d-> [SpringCloudConfigB]: Refresh
+}
+
+node "Client Application C" {
+  "RefreshEndpoint" as [RefreshEndpointC]
+  "Zookeeper Client" as [SpringCloudConfigC]
+  [RefreshEndpointC] -d-> [SpringCloudConfigC]: Refresh
+}
+
+node "Zookeeper" {
+   [Application Znodes] as "/config/{app-name}\n/config/{app-name},{profile}\n/config/application"
+}
+
+[SpringCloudConfigA] -d-> [Application Znodes]: Get config
+[SpringCloudConfigB] -d-> [Application Znodes]: Get config
+[SpringCloudConfigC] -d-> [Application Znodes]: Get config
+
+@enduml

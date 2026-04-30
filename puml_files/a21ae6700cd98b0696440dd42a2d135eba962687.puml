@@ -1,0 +1,12 @@
+' Blob ID: a21ae6700cd98b0696440dd42a2d135eba962687
+' Original Path: /docs/report/sm.puml
+' Source: World of Code
+
+@startuml
+
+ 
+(Manager) -down-> (Verifier): запрос на верификацию
+(Verifier) <- (Storage): чтение данных из\nхранилища для проверки
+(Verifier) -down-> (SM): позитивный вердикт
+
+@enduml

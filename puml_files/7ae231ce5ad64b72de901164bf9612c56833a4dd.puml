@@ -1,0 +1,27 @@
+' Blob ID: 7ae231ce5ad64b72de901164bf9612c56833a4dd
+' Original Path: /functional-specs/use-cases/diagrams/SearchActivityUCD-ShoppingCart/ProductOnCart.plantuml
+' Source: World of Code
+
+@startuml
+start
+:El Operador captura información en 
+la forma [Criterios de Búsqueda ProductOnCart];
+while (Datos incompletos?) is (SI)  
+	:El Sistema muestra los campos de la forma 
+	[Criterios de Búsqueda ProductOnCart] que son obligatorios.;  
+	:El Operador captura información en 
+	la forma [Criterios de Búsqueda ProductOnCart];
+endwhile (NO) 
+	:El Sistema obtiene información de acuerdo 
+	a los Criterios de Búsqueda seleccionados;
+	if (Existe información?) then (SI)    
+		:El Sistema muestra la lista 
+		[Resultados de Búsqueda ProductOnCart];
+	else (NO)    
+		:El Sistema avisa que no 
+		encontró información [ProductOnCart];		  
+		end  
+	endif
+stop
+@enduml
+

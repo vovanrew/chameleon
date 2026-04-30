@@ -1,0 +1,7 @@
+@startuml
+class Animal {
+  +name: String
+  +speak(): void
+}
+class Dog extends Animal
+@enduml

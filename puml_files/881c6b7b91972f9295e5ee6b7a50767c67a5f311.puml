@@ -1,0 +1,14 @@
+' Blob ID: 881c6b7b91972f9295e5ee6b7a50767c67a5f311
+' Original Path: /Documents/Activiti/Assignment/Lam_Assignment/index.puml
+' Source: World of Code
+
+@startuml
+start
+if (Check Role là user trong class?) is (đúng) then
+    :Chọn file;
+    :Bấm nộp bài;
+else (sai) 
+
+endif
+stop
+@enduml

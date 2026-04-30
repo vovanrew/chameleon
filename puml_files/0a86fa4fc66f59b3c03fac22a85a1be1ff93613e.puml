@@ -1,0 +1,23 @@
+' Blob ID: 0a86fa4fc66f59b3c03fac22a85a1be1ff93613e
+' Original Path: /specifications/usecases/library-item-rating/rate-item.puml
+' Source: World of Code
+
+@startuml
+
+left to right direction
+
+actor Client as cl
+
+rectangle "Rate library item" {
+  usecase "List unrated library items that he/she borrowed" as L
+  usecase "Rate an unrated libray item that he/she borrowed" as R
+  usecase "Consult note he/she gave to a library item" as C
+  usecase "Modify the note he/she gave to a library item" as M
+}
+
+cl -- L
+cl -- R
+cl -- C
+cl -- M
+
+@enduml

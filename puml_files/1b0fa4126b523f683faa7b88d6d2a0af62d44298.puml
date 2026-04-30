@@ -1,0 +1,35 @@
+' Blob ID: 1b0fa4126b523f683faa7b88d6d2a0af62d44298
+' Original Path: /diagrams/data schema.puml
+' Source: World of Code
+
+@startuml
+
+allow_mixing
+
+package "{id}" {
+    
+    object job.fp {
+        * program
+        * parameters
+    }
+
+    collections "linked input files"
+    collections "output files"
+
+}
+
+package programs {
+    package "{name}" {
+        object run.sh {
+
+        }
+
+        object properties.yaml {
+            * input file types
+            * interactive
+        }
+    }
+}
+
+
+@enduml

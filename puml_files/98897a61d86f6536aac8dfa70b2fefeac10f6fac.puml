@@ -1,0 +1,20 @@
+' Blob ID: 98897a61d86f6536aac8dfa70b2fefeac10f6fac
+' Original Path: /rapport/img/activity_image.uml
+' Source: World of Code
+
+@startuml
+
+start
+
+while (Il reste des contacts dans la liste) is (oui)
+	if (Le contact est un contact Dynamease) then (oui)
+		:Récupérer l'identifiant Dynamease du contact;
+		if (L'image existe déjà) then (non)
+			:Récupérer l'image depuis le serveur;
+			:Sauvegarder l'image sur l'appareil portable;
+		endif
+	endif
+endwhile
+
+stop
+@enduml 

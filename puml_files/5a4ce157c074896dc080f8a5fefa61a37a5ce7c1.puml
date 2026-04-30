@@ -1,0 +1,38 @@
+' Blob ID: 5a4ce157c074896dc080f8a5fefa61a37a5ce7c1
+' Original Path: /doc/images/deployment.puml
+' Source: World of Code
+
+@startuml
+
+[Browser]
+
+node Traefik
+node Webmodelica #Yellow
+node WebmodelicaUi #Yellow
+node MongoDB
+node RedisCache
+node UserSvc #red
+node AuthSvc #red
+
+Browser -- Traefik : HTTP /
+Traefik -- Webmodelica : HTTP /api/v1/webmodelica/*
+Traefik -- WebmodelicaUi : HTTP /*
+Traefik -- AuthSvc : HTTP /api/v1/auths/*
+Traefik -- UserSvc : HTTP /api/v1/users/*
+
+Webmodelica --> MongoDB
+Webmodelica --> RedisCache
+Webmodelica --> UserSvc : user models
+
+node MopeServer {
+  Webmodelica --> [MoPE] : HTTP /mope/*
+  [OpenModelica]
+  [MoPE] -- [OpenModelica] : ZeroMQ
+}
+
+storage SharedVolume
+
+Webmodelica --> SharedVolume : FsIO
+MopeServer --> SharedVolume : FsIO
+
+@enduml

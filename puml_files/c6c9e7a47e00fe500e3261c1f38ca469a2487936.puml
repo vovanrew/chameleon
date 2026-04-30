@@ -1,0 +1,22 @@
+' Blob ID: c6c9e7a47e00fe500e3261c1f38ca469a2487936
+' Original Path: /9 Timing Diagram/2 Adding message.puml
+' Source: World of Code
+
+@startuml
+
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+@0
+WU is Idle
+WB is Idle
+
+@100
+WU -> WB : URL
+WU is Waiting
+WB is Processing
+
+@300
+WB is Waiting
+
+@enduml

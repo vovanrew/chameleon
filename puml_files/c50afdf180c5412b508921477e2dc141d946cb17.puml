@@ -1,0 +1,12 @@
+' Blob ID: c50afdf180c5412b508921477e2dc141d946cb17
+' Original Path: /resources/diagrams/31-01.puml
+' Source: World of Code
+
+@startuml
+
+object Account
+object Zone
+
+Account -right-> Zone
+
+@enduml

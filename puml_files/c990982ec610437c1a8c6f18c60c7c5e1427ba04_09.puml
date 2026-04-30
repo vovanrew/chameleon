@@ -1,0 +1,18 @@
+' Blob ID: c990982ec610437c1a8c6f18c60c7c5e1427ba04
+' Original Path: /tmp/img/source/ai.pu
+' Source: World of Code
+
+@startuml
+hide empty description
+
+データ -right-> 目的データ : データ \n 選択
+目的データ -right-> 前処理後データ : データ \n 前処理 
+前処理後データ -right-> 変換済みデータ : データ \n 変換
+変換済みデータ -right-> パターン : データマイニング
+パターン -right-> 知識 : 解釈・評価
+知識 -right-> [*]
+パターン -down-> 目的データ 
+パターン -down-> 前処理後データ 
+パターン -down-> 変換済みデータ 
+skinparam backgroundColor transparent
+@enduml

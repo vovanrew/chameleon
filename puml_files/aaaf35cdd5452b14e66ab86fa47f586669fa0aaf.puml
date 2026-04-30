@@ -1,0 +1,35 @@
+' Blob ID: aaaf35cdd5452b14e66ab86fa47f586669fa0aaf
+' Original Path: /northernwind/1.2-ALPHA-10/apidocs/it/tidalwave/northernwind/frontend/ui/component/menu/htmltemplate/package.puml
+' Source: World of Code
+
+@startuml
+    namespace it.tidalwave.northernwind.frontend.ui.component.menu.htmltemplate {
+
+        class HtmlTemplateHorizontalMenuView [[HtmlTemplateHorizontalMenuView.html]] {
+            +HtmlTemplateHorizontalMenuView(Id)
+        }
+
+        class HtmlTemplateVerticalMenuView [[HtmlTemplateVerticalMenuView.html]] {
+            +HtmlTemplateVerticalMenuView(Id)
+        }
+
+        it.tidalwave.northernwind.frontend.ui.component.htmltemplate.HtmlHolder <|-- HtmlTemplateHorizontalMenuView
+        it.tidalwave.northernwind.frontend.ui.component.menu.MenuView <|.. HtmlTemplateHorizontalMenuView
+        it.tidalwave.northernwind.frontend.ui.component.htmltemplate.HtmlHolder <|-- HtmlTemplateVerticalMenuView
+        it.tidalwave.northernwind.frontend.ui.component.menu.MenuView <|.. HtmlTemplateVerticalMenuView
+    }
+
+    namespace it.tidalwave.northernwind.frontend.ui.component.htmltemplate {
+        class HtmlHolder [[../../htmltemplate/HtmlHolder.html]]
+    }
+
+    namespace it.tidalwave.northernwind.frontend.ui.component.menu {
+        interface MenuView [[../MenuView.html]] {
+            {abstract} +addLink(String, String): void
+            {abstract} +setTitle(String): void
+            {abstract} +setTemplate(String): void
+        }
+    }
+
+    center footer UMLDoclet 2.0.12, PlantUML 1.2020.16
+@enduml

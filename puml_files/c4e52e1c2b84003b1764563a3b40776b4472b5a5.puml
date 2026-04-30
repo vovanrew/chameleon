@@ -1,0 +1,50 @@
+' Blob ID: c4e52e1c2b84003b1764563a3b40776b4472b5a5
+' Original Path: /E-R/_diagrams/reference-data/ParameterType.1.0.0.puml
+' Source: World of Code
+
+@startuml
+hide methods
+skinparam groupInheritance 2
+skinparam class {
+    ArrowColor Black
+    BorderColor Black
+    BackgroundColor<<master-data>> LightSalmon
+    BackgroundColor<<work-product-component>> Gold
+    BackgroundColor<<abstract>> LightSteelBlue
+    BackgroundColor<<dataset>> Ivory
+    BackgroundColor<<reference-data>> Turquoise
+    BackgroundColor<<Abstraction>> LightSkyBlue
+    BackgroundColor<<error>> Red
+    BackgroundColor<<Activity>> LightSkyBlue
+    BackgroundColor<<ReferenceType>> LightSkyBlue
+    BackgroundColor<<WorkProductComponent>> LightSkyBlue
+    BackgroundColor<<Project>> LightSkyBlue
+    BackgroundColor<<File>> LightSkyBlue
+    BackgroundColor<<FileCollection>> LightSkyBlue
+    BackgroundColor<<MasterData>> LightSkyBlue
+    BackgroundColor<<nested array>> WhiteSmoke
+    BackgroundColor<<nested>> WhiteSmoke
+    packageStyle rectangle
+}
+package "ParameterType Outgoing Relationships View" <<rectangle>>
+{
+class "<size:16>ParameterType</size>" as ParameterType <<reference-data>>
+class "Organisation" <<master-data>>
+abstract "NameAlias[]" <<nested array>>
+"ParameterType" *-- "*" "NameAlias[]"
+"NameAlias[]" --> "1" "Organisation" : "DefinitionOrganisationID"
+
+class "Reference Data Relationships" <<reference-data>> {
+==
+"data.DefaultUnitOfMeasureID" → UnitOfMeasure
+==
+"data.NameAlias[].AliasNameTypeID" → AliasNameType
+"data.NameAlias[].DefinitionOrganisationID" → StandardsOrganisation
+==
+"data.QuantityTypeID" → UnitQuantity
+}
+"ParameterType" .up.> "Reference Data Relationships"
+abstract "AbstractReferenceType" <<Abstraction>>
+"ParameterType" -right-|>  "AbstractReferenceType"
+}
+@enduml

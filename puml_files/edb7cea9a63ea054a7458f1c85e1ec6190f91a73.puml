@@ -1,0 +1,10 @@
+' Blob ID: edb7cea9a63ea054a7458f1c85e1ec6190f91a73
+' Original Path: /test3/游客对象.puml
+' Source: World of Code
+
+@startuml
+ object 游客{
+    查询图书信息
+    注册账号
+ }
+@enduml

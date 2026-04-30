@@ -1,0 +1,106 @@
+' Blob ID: 8c52cc48ed17c6b5b58b473d67de80072135b2f8
+' Original Path: /Diagrams/Timing-diagram-Plan4-PostClip.pu
+' Source: World of Code
+
+@startuml
+concise "総括PLC" as MainPLC
+robust "パレット要求 STGR部品ID" as StgrId
+robust "STGR部品ID読み取り要求" as SupplySignal
+robust "組立中" as AssemblySignal
+
+concise "KIT PLC" as ProvidePLC
+robust "STGR部品ID読み取り完了" as StgrIdReadedSignal
+robust "CLIP部品ID走査中" as StatusScanSignal
+robust "ストッカ内STGR部品該当" as RelavantStgrIdSignal
+robust "パレット供給中" as SupplyingSignal
+robust "ピッキング許可" as PikkingReadySignal
+scale 100 as 150 pixels
+
+@0
+MainPLC is 準備完了待ち
+StgrId is HFFFF
+SupplySignal is OFF
+AssemblySignal is OFF
+
+ProvidePLC is 供給待機
+StgrIdReadedSignal is OFF
+StatusScanSignal is OFF
+RelavantStgrIdSignal is OFF
+SupplyingSignal is OFF
+PikkingReadySignal is OFF
+
+'*************************
+'STGR IDの受け渡し
+@0
+SupplyingSignal -> SupplySignal@+50: 1
+@50
+StgrId is "STGR ID"
+SupplySignal is ON
+SupplySignal -> StgrIdReadedSignal@+50: 2
+
+@100
+StgrIdReadedSignal is ON
+StgrIdReadedSignal -> SupplySignal@+150: 3
+
+@200
+RelavantStgrIdSignal -> SupplySignal@+50: 4
+
+@250
+SupplySignal is OFF
+SupplySignal -> StgrIdReadedSignal@+50: 5
+
+@300
+StgrIdReadedSignal -> StgrId: 6
+StgrIdReadedSignal is OFF
+StgrId is HFFFF
+'*************************
+
+'*************************
+'パレット搬送処理
+@100
+ProvidePLC is 指示受付
+@150
+ProvidePLC is 走査
+StatusScanSignal is ON
+@200
+StatusScanSignal is OFF
+ProvidePLC is 検出
+RelavantStgrIdSignal is ON
+SupplyingSignal is ON
+
+@250
+ProvidePLC is 搬送
+
+@300
+ProvidePLC is CLIP供給
+PikkingReadySignal is ON
+PikkingReadySignal -> AssemblySignal@+50: 7
+'*************************
+
+'*************************
+'パレット格納
+@350
+MainPLC is 組立
+AssemblySignal is ON
+AssemblySignal -> PikkingReadySignal@+50: 8
+
+@400
+PikkingReadySignal is OFF
+
+@450
+AssemblySignal is OFF
+MainPLC is 準備完了待ち
+AssemblySignal -> ProvidePLC@+50: 9
+
+@500
+ProvidePLC is パレット格納
+
+@550
+AssemblySignal is OFF
+
+@600
+SupplyingSignal is OFF
+ProvidePLC -> SupplyingSignal: 10
+ProvidePLC is 供給待機
+'*************************
+@enduml

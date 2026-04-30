@@ -1,0 +1,37 @@
+' Blob ID: 2dd3b72092895b19ad9ef3055b8ad16ef4acd634
+' Original Path: /architecture.pu
+' Source: World of Code
+
+@startuml
+left to right direction
+hide circle
+hide methods
+
+package DomainModel {
+    class 状態 #F5A9BC
+    class 機能 #F5A9BC
+
+    mix_actor 利用者 
+    mix_actor ユーザー
+
+    ドクター : 指示
+
+    利用者 <-- 状態 
+    ユーザー --> 機能
+    状態 o-- 食事
+    状態 o-- 排泄
+    状態 o-- 睡眠
+    状態 o-- 薬
+    状態 o-- 入浴
+    状態 o-- 健康状態
+    状態 o-- アクシデント
+    機能 o-- 検索
+    機能 o-- 区別
+    機能 o-- 表示
+    機能 o-- 取り込み
+    機能 o-- 登録
+    機能 o-- 削除
+    機能 o-- 更新
+    機能 o-- ステータス
+}
+@enduml

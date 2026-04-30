@@ -1,0 +1,19 @@
+' Blob ID: 1d5af7e545f39be6db2816e178b2d1269bbbe14a
+' Original Path: /Api/POSAPPBulletin2.puml
+' Source: World of Code
+
+@startuml
+
+participant "APP公告欄" as A
+participant "WebAPI" as B
+database "Maria DB" as C
+
+A -[#blue]> B : 指定某一筆公告欄內容:<font color=red><b>POSBulletinControle / ReadContent
+A <-[#red]- B : Token認證失敗: 回應失敗訊息
+B -[#blue]> C : Token認證成功: 查詢某一筆公告欄資料
+C -[#blue]> B : 讀取公告欄資料
+B -[#blue]> A : 回傳資料
+A -> A: 呈現公告欄畫面
+activate A #DarkSalmon
+@enduml
+

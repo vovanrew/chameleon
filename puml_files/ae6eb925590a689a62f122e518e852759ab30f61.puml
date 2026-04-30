@@ -1,0 +1,94 @@
+' Blob ID: ae6eb925590a689a62f122e518e852759ab30f61
+' Original Path: /study/day1/datasourcesInit.puml
+' Source: World of Code
+
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+' 创建数据源流程梳理
+
+autonumber
+
+
+@startuml
+start
+:DruidDataSourceFactory::createDataSource;
+note right
+开始创建数据源,传入配置
+end note
+:从系统的环境变量中读取配置;
+:从传入的配置文件中读取配置;
+note right
+基于读取的顺序也就能够确定了二者的优先级,
+这里配置的都是基本配置,还存在以 druid 开头的配置,也会在这里进行初始化
+可以理解为最开始初始化的是一套默认配置,之后初始化的是自定义配置,针对单个数据源
+end note
+
+if (是否执行连接池初始化) then (否)
+:结束初始化阶段;
+end
+else (是)
+    if (是否已经初始化) then (是)
+    :直接返回;
+    end
+    else (否)
+    :通过 lock 保证只有一个线程在初始化连接池;
+    :double check init 状态;
+    :保存初始化连接池的线程堆栈;
+    :创建数据源 Id,并根据 Id 创建链接,statement,resultSet,transactionId种子生成器;
+    if (驱动类 url ) then (不为 null)
+        #palegreen :调用initFromWrapDriverUrl进行驱动类的初始化;
+    else()
+        :跳过该步骤;
+    endif
+    :遍历 filters 执行 filter 的初始化,对于 spring 项目,会在 starter 中进行 filter 的 bean 注入;
+    if (dbTypeName != null) then
+        :根据 jdbc 的 url 获取 dbTypeName;
+    endif
+    if (dbType 是 mysql...) then
+            :cacheServerConfiguration参数的设置;
+    endif
+    :参数合法性校验;
+    #palegreen  :加载通过 spi 配置的 filter :initFromSPIServiceLoader();
+    #palegreen  :根据 url 决定驱动类 : resolveDriver();
+    :初始化对于不同类型 db 的驱动以及订制参数检测 : initCheck();
+    #palegreen  :异常码的转化与处理 : initExceptionSorter();
+    :initValidConnectionChecker();
+    :测试查询检测 : validationQueryCheck();;
+    if (使用全局数据源统计数据) then
+        :全局数据源统计数据相关配置;
+    else
+        :直接初始化一个JdbcDataSourceStat;
+    endif
+    #pink :new 空连接池数组 connections;
+    #pink :new 需要被释放的链接池数组 evictConnections;
+    #pink :new 存活的链接池数组 keepAliveConnections;
+    if (异步初始化) then
+        :提交一个任务,异步执行链接创建逻辑;
+    else
+      while (连接池数量小于初始化连接的数量的时候)
+      note right
+        这里说明实际创建的连接数是我们配置的
+        [initial-size] -1
+      end note
+        #palegreen :创建一个物理连接 createPhysicalConnection();
+        :基于 pyConnectInfo 创建 DruidConnectionHolder 对连接的一层封装封装中包含了链接以及 datasource;
+        :放到 connections 连接池中;
+        :链接池中链接数量大于 0 时候,更新链接池参数 :poolingPeak , poolingPeakTime ;
+      endwhile
+    endif
+    :createAndLogThread();
+    #palegreen :初始化创建连接的线程 : 这里是一个线程死循环处理 createAndStartCreatorThread();
+    #palegreen :销毁 可以配置定时销毁,业务传进来定时器 , 默认是一个线程不停执行销毁逻辑 :  createAndStartCreatorThread();
+    if (keepAlive) then
+        if (createScheduler != null) then
+            while (连接数量小于minIdle时候)
+               #palegreen :提交创建连接的任务submitCreateTask;
+            endwhile
+        endif
+    endif
+end
+
+
+@enduml

@@ -1,0 +1,18 @@
+' Blob ID: f19cc00453c6f7a71d0caa22b8c4eadbf229e773
+' Original Path: /Documents/Activiti/User/Quen_Mat_Khau/index.puml
+' Source: World of Code
+
+@startuml
+start
+repeat
+:Nhập username;
+backward: Thông báo cho user;
+repeat while (Email tồn tại?) is (sai)
+->đúng;
+repeat
+:Nhập mã pin;
+backward: Thông báo cho user;
+repeat while (Mã pin đúng?) is (sai)
+->đúng;
+stop
+@enduml

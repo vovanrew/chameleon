@@ -1,0 +1,17 @@
+' Blob ID: 33186bdd9170bfbaea05da3a00baad9841f56a86
+' Original Path: /docs/edgemere/sml/models/servicelet/statenet.puml
+' Source: World of Code
+
+@startuml
+
+
+
+state Servicelet #88cc88 {
+
+
+
+
+}
+
+
+@enduml

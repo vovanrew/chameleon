@@ -1,0 +1,13 @@
+' Blob ID: 6fda7b2f84adc34c91fedef149c83e7ede8dd0df
+' Original Path: /uml/usecases/category.usecase.wsd
+' Source: World of Code
+
+@startuml
+
+:Admin: -> (Criar categoria)
+:Admin: -> (Atualizar categoria)
+:Admin: -> (Remover categoria)
+:Admin: -> (Consultar categoria)
+:Admin: -> (Consultar categorias)
+
+@enduml

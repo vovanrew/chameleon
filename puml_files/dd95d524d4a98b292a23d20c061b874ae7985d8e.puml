@@ -1,0 +1,63 @@
+' Blob ID: dd95d524d4a98b292a23d20c061b874ae7985d8e
+' Original Path: /crk_cam_timings.puml
+' Source: World of Code
+
+@startuml
+
+binary "Cam" as CAM
+scale 100 as 150 pixels
+
+CAM is high
+
+@0
+CAM is high
+@+28.90
+CAM is low
+@+10.00
+CAM is high
+@+80.00
+CAM is low
+@+10.00
+CAM is high
+@+20.00
+CAM is low
+@+10.00
+CAM is high
+@+50.00
+CAM is low
+@+10.00
+CAM is high
+@+50.00
+CAM is low
+@+10.00
+CAM is high
+@+110.00
+CAM is low
+@+10.00
+CAM is high
+@+110.00
+CAM is low
+@+10.00
+CAM is high
+@+50.00
+CAM is low
+@+10.00
+CAM is high
+@+50.00
+CAM is low
+@+10.00
+CAM is high
+@+20.00
+CAM is low
+@+10.00
+CAM is high
+@+51.10
+CAM is low
+@720
+CAM is high
+@+28.9
+CAM is low
+@+10
+CAM is high
+
+@enduml

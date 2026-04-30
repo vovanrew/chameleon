@@ -1,0 +1,34 @@
+' Blob ID: 6706286518c93b48efa2916b0913f3b13b81461a
+' Original Path: /docs/uml.wsd
+' Source: World of Code
+
+@startuml
+
+node "Client" {
+ package "UI" {
+  [Calculator view]
+ }
+
+ package "Logic" {
+  [API helper] <--> [Calculator handler]
+ }
+
+ [Calculator view] <--> [Calculator handler]
+}
+
+node "Server" {
+ package "HTTP" {
+  [Endpoint /calc]
+  [Static files server]
+ }
+
+ package "Calculator" {
+  [Equation solver]
+ }
+
+ [Static files server] --> [Calculator view]
+ [Endpoint /calc] <--> [API helper]
+ [Equation solver] <--> [Endpoint /calc]
+}
+
+@enduml

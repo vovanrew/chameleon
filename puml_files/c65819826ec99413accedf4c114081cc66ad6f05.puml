@@ -1,0 +1,24 @@
+' Blob ID: c65819826ec99413accedf4c114081cc66ad6f05
+' Original Path: /Diagrams/SoftwareComponents.wsd
+' Source: World of Code
+
+@startuml
+
+package "Media platform" {
+    [Media playback] as MediaSource
+    [DRM system] as PlatformDrm
+}
+
+package "App" {
+    package "Libraries" {
+        [DASH client] as Player
+    }
+
+    [Solution-specific logic and configuration] as AppLogic
+}
+
+Player -down-> PlatformDrm
+Player -down-> MediaSource
+Player -up-> AppLogic
+
+@enduml

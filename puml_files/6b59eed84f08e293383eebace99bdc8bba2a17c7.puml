@@ -1,0 +1,16 @@
+' Blob ID: 6b59eed84f08e293383eebace99bdc8bba2a17c7
+' Original Path: /images/statemachine_from_antipattern/refinestate_state2.wsd
+' Source: World of Code
+
+@startuml
+
+skin rose
+[*] --> 壁非接触状態
+壁非接触状態 --> 壁接触状態 : 接触対象が壁である
+壁接触状態 --> 壁非接触状態 : 接触対象が壁でない
+
+壁非接触状態 --> 高速移動状態 : 高速移動キーが入力された
+高速移動状態 --> 壁非接触状態 : 高速移動キーが離された
+高速移動状態 --> 壁接触状態 : 壁に接触した
+
+@enduml

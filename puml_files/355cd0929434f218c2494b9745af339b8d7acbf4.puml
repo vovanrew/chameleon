@@ -1,0 +1,37 @@
+' Blob ID: 355cd0929434f218c2494b9745af339b8d7acbf4
+' Original Path: /BI/roll.plantuml
+' Source: World of Code
+
+@startuml
+
+database DS[
+  データソース
+  --
+  データ収集
+  ETLプロセス
+  分散システム
+]
+cloud DL[
+  データレイク
+  --
+  ワークフロー管理
+  スクリプト言語
+  SQL
+]
+database DM[
+  データマート
+  --
+  BIツール
+  統計アプリ
+  機械学習
+]
+node view[
+  ビュー
+  --
+  分析結果
+]
+
+DS -ri==> DL
+DL -ri==> DM
+DM -ri==> view
+@enduml

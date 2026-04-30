@@ -1,0 +1,35 @@
+' Blob ID: 3da6d50d6c13ce4e598f3ef4780da418a678fa67
+' Original Path: /systemdiagram.puml
+' Source: World of Code
+
+@startuml
+
+title Smart Clock System Overview Diagram
+
+package smart-clock{
+  package Hardware{
+    [RGB LED Matrix Display]
+    [Ambient Light Sensor]
+    [Buttons]
+  }
+
+  package "Raspberry Pi" {
+    package Rust {
+      [RPPAL]
+      [web_server]
+      [rpi-rgb-led-matrix]
+    }
+
+    package lighttpd {
+      [Config frontend]
+    }
+  }
+}
+
+[Ambient Light Sensor] --> [RPPAL]
+[Buttons] --> [RPPAL]
+
+[RGB LED Matrix Display] <-- [rpi-rgb-led-matrix]
+[Config frontend] --> [web_server]
+
+@enduml

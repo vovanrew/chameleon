@@ -1,0 +1,63 @@
+' Blob ID: 1d57415bb7a0aded8c559f500539d012e5ffc326
+' Original Path: /media/video/beginer-youtube-workflow.puml
+' Source: World of Code
+
+@startuml
+Title YouTube publishing workflow
+center header
+Beginner workflow for YouTube videos
+endheader
+(*) if "Is it planned?" then
+partition "Preproduction" {
+    --left> [Yes] "Story / scripts"
+    --left> "Actors"
+    --left> "Intro"
+    --left> "Scenes"
+    -left-> "Location"
+}
+--> "Production" as P
+note left:Refer the [[https://www.plantuml.com/plantuml/proxy?fmt=svg&cache=no&src=https://raw.githubusercontent.com/mind-maps/technology/master/media/video/publishing.puml Mind map]] \nfor shooting quick references
+else
+-->[No] P
+endif
+partition PostProduction {
+    --> "Backup all videos" as B
+    note left:One in working machine \nanother in external disk\nPrefer NAS
+    --> "[[https://en.wikipedia.org/wiki/Rough_cut Rough cut]]" as RC
+    --> "Sync sound\nif recorded separately"
+    --right> "Add music,\nspecial effects"
+    --> "End screen visual (20 seconds)"
+    note right:YouTube Only
+    --left> "Render" as R
+    note left: If output doesn't looks good,\n goto Rough cut step 
+    B -right-> "Create Thumbnail"
+    note right: Better create separately \nthan auto from youtube
+}
+partition YouTubeUpload {
+
+    R --> "Description" as U
+    U --right> "Video chapters" as VC
+    VC--right> "Thumbnail" as STN
+    STN--right> "Audience" as AUD
+    AUD --right> "Tags" as TAGS
+    TAGS --right> "End screen" as ES
+    ES --> "Recording date" as RD
+    --left> "Video location"
+    --left> "Category"
+    --left> "Video language"
+    --left> "Mask faces \nif applicable " as MF
+    --left> "Sub title" as ST
+    note left:Do not render into video\n use SRT
+}
+partition "Post publish"{
+    --> "Share in social media" as SM
+
+}
+-->(*)
+center footer JoymonOnline
+
+legend right
+  - 2 lines starting from a node means it can be done in parallel.
+endlegend
+
+@enduml

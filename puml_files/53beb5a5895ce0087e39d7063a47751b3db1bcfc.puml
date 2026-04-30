@@ -1,0 +1,21 @@
+' Blob ID: 53beb5a5895ce0087e39d7063a47751b3db1bcfc
+' Original Path: /resources/puml/phing-doc.puml
+' Source: World of Code
+
+@startuml
+title FooBar
+skinparam ArrowFontColor Black
+skinparam ArrowThickness 2
+skinparam UseCaseBackgroundColor #FFFECC
+skinparam UseCaseBorderColor #333333
+skinparam UseCaseBorderThickness 2
+skinparam UseCaseFontColor Black
+
+(build)-[#5D9CEC]->(prepare) : depend:1
+(dist)-[#5D9CEC]->(build) : depend:1
+
+(prepare)
+(build)
+(dist)
+
+@enduml

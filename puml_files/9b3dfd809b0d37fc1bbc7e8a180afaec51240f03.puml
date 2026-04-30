@@ -1,0 +1,19 @@
+' Blob ID: 9b3dfd809b0d37fc1bbc7e8a180afaec51240f03
+' Original Path: /UML/customer-order.plantuml
+' Source: World of Code
+
+@startuml
+participant Customer as Cust order 10
+participant Waiter as Wait order 20
+participant Cook order 30
+
+Cust -> Wait: Place an oder.
+return : Confirm the order.
+Wait -> Cook ++ : Pass the order.
+Cook -> Cook : Prepare the food.
+return Mark the order ready.
+
+Wait -> Cust++ : Bring the fulfilled order.
+Cust -> Cust : Eat the food.
+return Pay the bill.
+@enduml

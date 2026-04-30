@@ -1,0 +1,12 @@
+' Blob ID: 3d13b17b169c2706d635e44a47992299122747a9
+' Original Path: /OAuth.plantuml
+' Source: World of Code
+
+@startuml
+Client -> "OAuth server": request without authorization code
+"OAuth server" --> "OAuth server": validate request
+"OAuth server" -> Client: auth code granted
+Client -> Server: request with auth code
+Server --> Server: validate auth code
+Server -> Client: response
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+left to right direction
+actor User
+rectangle System {
+  User --> (Login)
+  User --> (Logout)
+}
+@enduml

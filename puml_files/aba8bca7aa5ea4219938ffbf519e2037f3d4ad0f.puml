@@ -1,0 +1,97 @@
+' Blob ID: aba8bca7aa5ea4219938ffbf519e2037f3d4ad0f
+' Original Path: /Coding/fw/doc/design/FW_Hierarchy.plantuml
+' Source: World of Code
+
+@startuml
+
+title Hierarchy Diagram
+
+node {
+    package src{
+        component Main
+        component Adapters
+    }
+
+    Main -right-> Adapters
+
+    package lib{
+        component CAN
+        component IO
+        component Lawicel
+        component Settings
+        component WebServer
+
+        component ESP32SJA1000
+        component Board
+        component FlashMem
+        component WLAN
+        component AsyncWebServer
+    }
+
+    Main --> Lawicel
+    Main --> Settings
+    Main --> IO
+
+    Adapters --> Lawicel
+    Adapters --> CAN
+    Adapters --> WebServer
+
+    CAN --> ESP32SJA1000
+    IO --> Board
+    Settings --> FlashMem
+    Settings --> WLAN
+    WebServer --> AsyncWebServer
+
+    package Service{
+        component CANController
+        component GPIO
+        component WiFi
+        component Preferences
+        component AsyncTCP
+    }
+
+    ESP32SJA1000 --> CANController
+    Board --> GPIO
+    FlashMem --> Preferences
+    WLAN --> WiFi
+    AsyncWebServer --> AsyncTCP
+
+    package HAL {
+        component Arduino
+    }
+
+    CANController --> Arduino
+    GPIO --> Arduino
+    Preferences --> Arduino
+    WiFi --> Arduino
+    AsyncTCP --> Arduino
+
+    package Hardware{
+        interface WiFi_Anthena
+        interface USB
+        interface CAN_Transceiver
+        interface Button
+        interface LEDs
+    }
+
+    Arduino --> WiFi_Anthena
+    Arduino --> USB
+    Arduino --> CAN_Transceiver
+    Arduino --> Button
+    Arduino --> LEDs
+}
+
+component Laptop
+component CAN_BUS
+component User
+
+LEDs --> User
+Button --> User
+CAN_Transceiver --> CAN_BUS
+USB --> Laptop
+WiFi_Anthena --> Laptop
+
+
+
+
+@enduml

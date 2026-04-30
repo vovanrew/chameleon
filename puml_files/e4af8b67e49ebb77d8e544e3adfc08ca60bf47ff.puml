@@ -1,0 +1,23 @@
+' Blob ID: e4af8b67e49ebb77d8e544e3adfc08ca60bf47ff
+' Original Path: /Rapport/diagrammes/UseCases.puml
+' Source: World of Code
+
+@startuml
+
+left to right direction
+
+actor administrateur
+actor joueur
+
+rectangle jeu {
+    joueur -- (jouer une partie)
+    (jouer une partie) ..>  (joindre une partie):<includes>
+    administrateur -- (configurer une partie)
+    administrateur -- (lancer une partie)
+    administrateur -- (reinitialisation des scores)
+    (lancer une partie)<..(mettre fin a une partie):<extends>
+}
+
+
+
+@enduml

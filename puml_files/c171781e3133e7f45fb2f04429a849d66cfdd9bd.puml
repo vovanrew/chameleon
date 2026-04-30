@@ -1,0 +1,23 @@
+' Blob ID: c171781e3133e7f45fb2f04429a849d66cfdd9bd
+' Original Path: /dex/doc/order-states.puml
+' Source: World of Code
+
+@startuml
+
+title DEX Order states
+
+[*] --> active : Customer submits order
+active --> cancelled : Customer cancels the order
+active --> expired : Expiry time reached
+active --> pendingConfirmation : fillOrder
+partiallyFilled --> pendingConfirmation : fillOrder
+partiallyFilled --> expired : Expiry time reached
+partiallyFilled --> cancelled : Customer cancels the order
+pendingConfirmation --> partiallyFilled : Tx succeeded
+pendingConfirmation --> filled : Tx succeeded
+pendingConfirmation --> error : Tx failed
+error --> [*] : archive
+filled --> [*] : archive
+expired --> [*] : archive
+cancelled --> [*] : archive
+@enduml

@@ -1,0 +1,64 @@
+' Blob ID: 433b429b13a04e5049367ef1f04d8f0a49c11e4d
+' Original Path: /src/main/java/csheets/worklog/n1140917/sprint3/lang05_02_designDC.puml
+' Source: World of Code
+
+@startuml
+
+class  MacroWindowController {
+-uiController
++newMacro(String name, String instructions)
++createMacro(String name, String instructions)
++validateMacroName(String macroName)
++runMacro(String instructions)
++getMacro(String macroName)
++listAvailableMacros()
+}
+
+
+class MacroWorkbookRepo{
+-macros
++addMacro(Macro macro)
++getMacro(String macroName)
++listAvailableMacros()
+}
+
+class MacrosExtension{
++getUIExtension(UIController uiController)
++extend(Spreadsheet spreadsheet)
+}
+
+class MacroWindowUI{
+-ctrlMacro
+-updateMacroList()
+}
+
+class Macro{
+-name
+-sheet
+-lines
+-formulas
++validateName(String name)
++getName()
++getMacroText()
++addLine(String line)
++run()
++evaluate()
++accept(ExpressionVisitor visitor)
++equals(Object o)
++hashCode()
+}
+
+abstract SpreadsheetExtension{
+-delegate
+-name
++SpreadsheetExtension(Spreadsheet delegate, String name)
++getExtension(String name)
+}
+
+MacroWorkbookRepo --|> SpreadsheetExtension
+MacrosExtension --> MacroWorkbookRepo
+MacroWindowUI --> MacroWindowController
+MacroWindowController --> MacroWorkbookRepo
+MacroWindowController --> Macro
+
+@enduml

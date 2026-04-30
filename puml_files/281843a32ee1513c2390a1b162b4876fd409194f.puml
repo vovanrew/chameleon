@@ -1,0 +1,79 @@
+' Blob ID: 281843a32ee1513c2390a1b162b4876fd409194f
+' Original Path: /diagrams/make-appointment.puml
+' Source: World of Code
+
+@startuml
+
+skinparam sequence {
+    ActivityBarColor #black
+}
+
+footer created by Brian Savage 07/01/2021 \n all rights reservrd David's Bridal Inc.
+
+title Make An Appointment Text Messages
+
+start
+
+#eeeeee:Text "Hello";
+#e1ebfc:Welcome! I'm Zoey, your assistant for
+David's Bridal. How can I help you today?;
+-[#Blue,dashed]-> skill offers options;
+
+split
+    -[#blue,dashed]->;
+    #eeeeee:A. Make an Appointment;
+    -[#green,dashed]-> she texts option <b>A;
+split again
+    #fddeff:B. Reschedule Appointment;
+    end
+split again
+    #fddeff:C. Cancel Appointment;
+    end
+split again
+    #fddeff:D. Confirm Appointment;
+    end
+end split
+
+-[#blue,dashed]-> skill acknowledges her selection;
+#e1ebfc:We look forward to working with you! I'll just need to get some info from you first...;
+
+-[#blue,dashed]-> skill ask for her name;
+#e1ebfc:What is your first name?;
+
+-[#green,dashed]-> she texts her name;
+#eeeeee:Bride;
+
+-[#blue,dashed]-> skill ask for her appointment type;
+#e1ebfc:What type of appointment?;
+
+split
+    -[#blue,dashed]->;
+    #eeeeee:A. Bridal;
+    -[#green,dashed]-> she texts option <b>A;
+    #eeeeee:Will this be your first time trying on wedding dresses at Davids Bridal?;
+
+split again
+    #fddeff:B. Bridesmaids;
+    #eeeeee:Will this be your first time trying on wedding dresses at Davids Bridal?;
+    end
+split again
+    #fddeff:C. Alterations;
+    end
+split again
+    #fddeff:D. Special occasion;
+    end
+split again
+    #fddeff:E. Prom & homecoming;
+    end
+split again
+    #fddeff:F. Something else;
+    end
+end split
+
+-[#green,dashed]-> she texts her name;
+#eeeeee:Bride;
+
+-[#blue,dashed]-> skill ask for her name;
+#e1ebfc:What is your first name?;
+
+@enduml

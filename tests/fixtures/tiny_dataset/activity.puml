@@ -1,0 +1,10 @@
+@startuml
+start
+:read input;
+if (valid?) then (yes)
+  :process;
+else (no)
+  :reject;
+endif
+stop
+@enduml

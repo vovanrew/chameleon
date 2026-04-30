@@ -1,0 +1,17 @@
+' Blob ID: 4ad2431a8b61e70d9083ac51dff5c84afa8ac52d
+' Original Path: /plantuml/web.uml
+' Source: World of Code
+
+@startuml
+title "Web Configuration"
+package "MCU" {
+    [Web Server]
+    [Config Files] <-> [Web Server]
+    note bottom of [Config Files] : JSON
+    [Camera Status] -> [Web Server]
+    [GPS Status] -> [Web Server]
+}
+package "Web Browser" {
+    [Web Server] <-> [Web Config Portal] : HTTP
+}
+@enduml

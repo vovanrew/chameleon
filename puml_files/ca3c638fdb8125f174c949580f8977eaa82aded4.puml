@@ -1,0 +1,9 @@
+' Blob ID: ca3c638fdb8125f174c949580f8977eaa82aded4
+' Original Path: /design/usecase.pu
+' Source: World of Code
+
+@startuml
+left to right direction
+User -> (指定したアカウントがプログラミング続きそうかの確率がわかる)
+User -> (どんなワードがあるとプログラミングが続かなそうかがわかる)
+@enduml

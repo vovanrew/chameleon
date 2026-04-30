@@ -1,0 +1,97 @@
+' Blob ID: b51928465e3ee1db7f41f5cf74a19e7ab18b6ea3
+' Original Path: /src/junior/contactlist/detailed.puml
+' Source: World of Code
+
+@startuml
+
+' ATTENTION the web features are not covered by current implementation
+
+namespace model {
+    abstract class Contact {
+        long id
+        String firstName
+        String lastName
+        String phone
+        String email
+    }
+
+    class Colleague {
+        String department
+        String company
+    }
+    note bottom: Inheritance:\nextends the\nContact class
+
+    class Friend {
+        String personal-phone
+        String personal-email
+    }
+    note bottom: Inheritance:\nextends the\nContact class
+
+    Contact <|-- Colleague
+    Contact <|-- Friend
+
+}
+
+namespace repository {
+    interface ContactsRepository
+    ContactsRepository : int create(Contact conta
+    ContactsRepository : Contact read(int contact
+    ContactsRepository : List<Contact> readAll()
+    ContactsRepository : update(Contact contact)
+    ContactsRepository : delete(int contact)
+    ContactsRepository : delete(Contact contact)
+
+    ContactsRepository <|-- InMemoryContactsRepo
+    ContactsRepository <|-- SQLiteContactsRepo
+    note bottom: SQLite is a possible implementation and not covered in this material
+    ContactsRepository *-- model.Contact
+
+}
+
+namespace service {
+    class ContactsService
+    note left: Is using "Contact"s\nas parameters\nComposition: ContactsRespoitory instance
+
+    ContactsService : int create(Contact contact)
+    ContactsService : Contact read(int contactId)
+    ContactsService : List<Contact> readAll()
+    ContactsService : update(Contact contact)
+    ContactsService : delete(int contact)
+    ContactsService : delete(Contact contact)
+
+    ContactsService *-- repository.ContactsRepository
+    ContactsService *-- model.Contact
+}
+
+namespace controller {
+    interface ContactsController
+    note top: Define the contract\nof a ContactsController
+    ContactsController : run()
+    ContactsController <|-- ConsoleController
+    ContactsController <|-- WebController
+
+    class WebController
+    note top: Composition: contains instances of\nHtmlView and ContactsService\ninstead of implementing their functionality\n\nWeb + Html is a possible implementation and not covered in this material
+    WebController *-- view.HtmlView
+    WebController *-- service.ContactsService
+
+    class ConsoleController
+    note top: Composition: contains instances of\nConsoleView and ContactsService\ninstead of implementing their functionality
+    ConsoleController *-- view.ConsoleView
+    ConsoleController *-- service.ContactsService
+}
+
+namespace view {
+    class ConsoleView
+    class HtmlView
+    note bottom: Web + Html is a possible implementation and not covered in this material
+
+    ConsoleView *-- model.Colleague
+    ConsoleView *-- model.Friend
+
+    HtmlView *-- model.Colleague
+    HtmlView *-- model.Friend
+}
+
+
+@enduml

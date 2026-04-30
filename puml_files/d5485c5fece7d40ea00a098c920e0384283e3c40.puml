@@ -1,0 +1,27 @@
+' Blob ID: d5485c5fece7d40ea00a098c920e0384283e3c40
+' Original Path: /Scooter/scooterCaseDiagram.puml
+' Source: World of Code
+
+@startuml
+left to right direction
+actor User
+actor Scooter
+
+rectangle ElectricScooterHireApp {
+usecase ScanCode
+usecase DownloadApp
+usecase PayForHire
+usecase PickUpScooter
+usecase ReturnScooter
+usecase CompleteRegistration
+usecase DisplayCode
+
+User --> ScanCode
+User --> DownloadApp
+User --> PayForHire
+User --> PickUpScooter
+User --> ReturnScooter
+User --> CompleteRegistration
+Scooter --> DisplayCode
+}
+@enduml

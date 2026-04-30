@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chameleon"
+version = "0.1.0"
+description = "Render PlantUML files into visually diversified images via probability-weighted profiles."
+requires-python = ">=3.11"
+dependencies = [
+    "pyyaml",
+    "tqdm",
+]
+
+[project.scripts]
+chameleon = "chameleon.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chameleon"]
+
+[tool.chameleon]
+expected_plantuml_version = "1.2025.9"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.ruff.format]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

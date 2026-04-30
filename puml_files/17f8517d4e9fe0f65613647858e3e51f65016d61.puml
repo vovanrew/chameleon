@@ -1,0 +1,29 @@
+' Blob ID: 17f8517d4e9fe0f65613647858e3e51f65016d61
+' Original Path: /InitSamples/pltumlsmpl.wsd
+' Source: World of Code
+
+@startuml
+robust "DNS Resolver" as DNS
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+@0
+WU is Idle
+WB is Idle
+DNS is Idle
+
+@+100
+WU -> WB : URL
+WU is Waiting
+WB is Processing
+
+@+200
+WB is Waiting
+WB -> DNS@+50 : Resolve URL
+
+@+100
+DNS is Processing
+
+@+300
+DNS is Idle
+@enduml

@@ -1,0 +1,42 @@
+' Blob ID: 0a8129052c2165b04b16713e6b5be7f151307a7d
+' Original Path: /Latex/UML/circuito-output.plantuml
+' Source: World of Code
+
+@startuml
+hide time-axis
+concise "SCLK" as SCLK
+binary "__SYNC__" as SYNC
+concise "SDIN" as SDIN
+concise "SDO" as SDO
+binary "__LDAC__" as LDAC
+
+@0
+SYNC is high
+SDIN is {-}
+SCLK is {-}
+SDO is {-}
+
+@1
+SYNC is low
+SDIN is "data"
+SCLK is "24 clock"
+
+@4
+SYNC is high
+SDIN is {-}
+SCLK is {-}
+
+@5
+SYNC is low
+SDIN is "NOP"
+SDO is "data"
+SCLK is "24 clock"
+
+@8
+SYNC is high
+SDIN is {-}
+SCLK is {-}
+SDO is {-}
+
+
+@enduml

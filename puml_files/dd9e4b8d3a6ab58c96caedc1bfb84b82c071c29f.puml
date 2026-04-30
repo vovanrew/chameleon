@@ -1,0 +1,38 @@
+' Blob ID: dd9e4b8d3a6ab58c96caedc1bfb84b82c071c29f
+' Original Path: /architecture/src/main/resources/diagrams/qq/use-case.puml
+' Source: World of Code
+
+@startuml
+left to right direction
+
+:Rating Admin: as Admin #red
+:Mobile Agent: as User #red
+
+rectangle QuickQuote {
+    (Adjust Premium Factors) as (PremiumAdj)
+    (Initiate Auto Quote) as (QuoteInit)
+    (Calculate Premium) as (QuoteRating)
+    (Validate Quote) as (QuoteValidation)
+    (Issue Policy) as (PolicyIssuance)
+    (Get Lookup Data) as (Lookup)
+    (Search Vehicle) as (Vehicle)
+    (Register Customer) as (Customer)
+    (Save Quote) as (QuoteSave)
+}
+
+User --> (QuoteInit)
+User --> (QuoteRating)
+User --> (PolicyIssuance)
+User --> (Lookup)
+User --> (Vehicle)
+User --> (QuoteValidation)
+User --> (Customer)
+User --> (QuoteSave)
+
+Admin --> (PremiumAdj)
+
+note left of (Admin)
+Adjusts rating factors
+via Webstudio
+end note
+@enduml

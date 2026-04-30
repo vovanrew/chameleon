@@ -1,0 +1,18 @@
+' Blob ID: 43bb8cd8dc956c109e188201fe8d684e7e84c2f3
+' Original Path: /docs/UseCases/Manage-Applications/Monitor-Workload.puml
+' Source: World of Code
+
+@startuml
+Actor "actorName" as A
+
+box "Manage-Applications" #lightblue
+participant CLI as CLI
+participant Web as Web
+participant "Edgeville" as S
+A -> CLI : Edgeville-workload-monitor()
+CLI -> S : workload/monitor()
+A -> Web : workload/monitor()
+Web -> S : workload/monitor()
+end box
+
+@enduml

@@ -1,0 +1,147 @@
+' Blob ID: 2a0e9db3377955437d830b6dad60b337668fc25d
+' Original Path: /test.plantuml.puml
+' Source: World of Code
+
+@startuml
+class com.example.expensetracker.Range {
+- double priceLow
+- double priceHigh
++ double getPriceLow()
++ void setPriceLow(double)
++ double getPriceHigh()
++ void setPriceHigh(double)
+}
+class com.example.expensetracker.Expense {
+- String name
+- Double price
+- LocalDate date
+- String location
+- String notes
+- String category
+- int randomId
+- String currency
+- Range priceRange
++ Object getCharacteristic(String)
++ String getCurrency()
++ void setCurrency(String)
++ String getName()
++ void setName(String)
++ Range getPriceRange()
++ void setPriceRange(Range)
++ Double getPrice()
++ void setPrice(double)
++ String getLocation()
++ void setLocation(String)
++ String getNotes()
++ void setNotes(String)
++ String getCategory()
++ LocalDate getDate()
++ void setCategory(String)
++ void setDate(String)
++ int compareTo(Expense)
+}
+class com.example.expensetracker.CsvHandler {
++ {static} void exportCsv(ExpenseSheet,String)
++ {static} ExpenseSheet importCsv(String)
+}
+class com.example.expensetracker.Operation {
++ {static} int ADD_OPERATION
++ {static} int REMOVE_OPERATION
+- int operationType
+- Expense operationExpense
++ void toggleOperationType()
++ int getOperationType()
++ void setOperationType(int)
++ Expense getOperationExpense()
++ void setOperationExpense(Expense)
+}
+class com.example.expensetracker.ExpenseViewHolder {
++ TextView nameView
++ TextView priceView
++ TextView currencyView
++ TextView locationView
++ TextView categoryView
++ TextView dateView
++ TextView notesView
+}
+class com.example.expensetracker.ExpensesAdapter {
+- TreeSet<Expense> mExpenses
+- TreeSet<Expense> mSearchResults
+- LayoutInflater mInflater
+- Context expenseContext
+- boolean showSearchResults
++ void deleteFromSearchTree(Expense)
++ boolean isShowSearchResults()
++ void setSearchResults(TreeSet<Expense>)
++ void setExpenses(TreeSet<Expense>)
++ void setShowSearchResults(boolean)
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+}
+class com.example.expensetracker.MainActivity {
++ {static} ExpenseSheet expenses
++ {static} Activity currentActivity
+- ListView expensesView
+- int selectedPosition
++ {static} Context mainContext
+- ExpensesAdapter adapter
+- SharedPreferences mPrefs
+~ Calendar myCalendar
+- OperationsStack currentOperationStack
+- SharedPreferences.Editor mEditor
++ void refreshAdapter()
++ void loadExpenseSheet(ExpenseSheet)
++ void onRequestPermissionsResult(int,String[],int[])
+# void onCreate(Bundle)
++ void newSheetClick(View)
++ void undoButtonClick(View)
+# void onActivityResult(int,int,Intent)
++ void importSheetClick(View)
++ void exportSheetClick(View)
++ void redoButtonClick(View)
++ void hideListViewSelector()
++ void deleteExpenseButtonClick(View)
++ void saveData()
++ {static} void disableSoftInputFromAppearing(EditText)
++ String padDate(int)
++ void addExpenseButtonClick(View)
++ void setupExpenseAnalysisData(LinearLayout,LayoutInflater,String,boolean)
++ void openDataAnalysis(View)
++ void searchButtonClick(View)
+}
+class com.example.expensetracker.ExpenseSheet {
++ HashMap<String,ArrayList<Expense>> nameMap
++ HashMap<String,ArrayList<Expense>> categoryMap
++ HashMap<String,ArrayList<Expense>> locationMap
++ HashMap<LocalDate,ArrayList<Expense>> dateMap
++ HashMap<String,ArrayList<Expense>> currencyMap
++ TreeMap<Double,ArrayList<Expense>> priceMap
++ TreeSet<Expense> sortedExpenses
++ boolean addExpense(Expense)
++ void searchHelper(Expense,HashMap<Expense,Integer>,String)
++ ArrayList<Expense> searchByRange(Range)
++ TreeSet<Expense> multiSearch(Expense)
++ boolean removeExpense(Expense)
+}
+class com.example.expensetracker.OperationsStack {
+- Stack<Operation> undoOperations
+- Stack<Operation> redoOperations
++ boolean addExpense(Expense)
++ boolean removeExpense(Expense)
++ void performUndo()
++ void performRedo()
+}
+class com.example.expensetracker.DataAnalysis {
+- {static} Integer OUTLIER_VARIANCE
++ {static} TreeSet<Expense> findOutliers(ExpenseSheet)
++ {static} HashMap<String,Double> calculateTotal(ExpenseSheet)
++ {static} HashMap<String,Double> calculateAverages(ExpenseSheet)
+}
+
+
+com.example.expensetracker.Comparable <|.. com.example.expensetracker.Expense
+android.widget.BaseAdapter <|-- com.example.expensetracker.ExpensesAdapter
+androidx.appcompat.app.AppCompatActivity <|-- com.example.expensetracker.MainActivity
+@enduml
