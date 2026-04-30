@@ -8,6 +8,7 @@ build/
 .venv/
 venv/
 
+puml_files/
 output/
 *.tmp
 
